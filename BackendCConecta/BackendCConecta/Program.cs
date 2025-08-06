@@ -46,6 +46,12 @@ using BackendCConecta.Infraestructura.Repositorios.DatosPersona;
 
 
 var builder = WebApplication.CreateBuilder(args);
+// 🔐 Carga explícita de secrets.json
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddUserSecrets<Program>() // ⬅️ Esto carga el secrets.json
+    .AddEnvironmentVariables();
 var config = builder.Configuration;
 
 // ---------------------------------------------
