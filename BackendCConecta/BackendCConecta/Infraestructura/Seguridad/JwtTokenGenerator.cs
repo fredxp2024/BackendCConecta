@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 
 using BackendCConecta.Aplicacion.InterfacesGenerales;
+using BackendCConecta.Dominio.Entidades.Usuarios;
 
 namespace BackendCConecta.Infraestructura.Seguridad
 {
@@ -18,13 +19,13 @@ namespace BackendCConecta.Infraestructura.Seguridad
             _config = config;
         }
 
-        public string GenerarToken(int idUsuario, string correo, string tipoAcceso)
+        public string GenerarToken(Usuario usuario)
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, idUsuario.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, correo),
-                new Claim("rol", tipoAcceso),
+                new Claim(JwtRegisteredClaimNames.Sub, usuario.IdUsuario.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoElectronico),
+                new Claim("rol", usuario.TipoAcceso),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
