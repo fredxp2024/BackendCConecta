@@ -47,8 +47,6 @@ using BackendCConecta.Infraestructura.Repositorios.DatosPersona;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-// ✅ Aquí colocas la línea para probar
-Console.WriteLine("KEY JWT: " + config["Jwt:Key"]);
 // ---------------------------------------------
 // 1. CONFIGURACIÓN DE AUTENTICACIÓN JWT
 // ---------------------------------------------
