@@ -4,7 +4,7 @@ using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.DTOs;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Persistencia;
 
-namespace BackendCConecta.Infraestructura.Repositorios.Ubicationes
+namespace BackendCConecta.Infraestructura.Repositorios.Ubicaciones
 {
     public class UbicacionSistemaRepository : IUbicacionesSistemaRepository
     {
