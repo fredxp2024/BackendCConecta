@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BackendCConecta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+382e72d41ac86c691261b2fead37224bb3a4187a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+985b5cf0976acb5b5a6da44df4a215447d4734c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("BackendCConecta")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BackendCConecta")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
