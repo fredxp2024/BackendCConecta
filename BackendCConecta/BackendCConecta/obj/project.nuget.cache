@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1bP7NmjDSus=",
+  "dgSpecHash": "3KDDw478DVY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\SistemaNuevo\\BackendCConecta\\BackendCConecta\\BackendCConecta.csproj",
+  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\SISTEMAFRONTYBACKEND\\BACKEND\\BackendCConecta\\BackendCConecta\\BackendCConecta.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.DTOs;
@@ -15,49 +17,46 @@ namespace BackendCConecta.Infraestructura.Servicios.Usuarios
 
         public UsuarioQueryService(AppDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Usuario?> ObtenerPorIdAsync(int id)
+        public Task<UsuarioDto?> ObtenerPorIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == id);
+            return _context.Usuarios
+                .AsNoTracking()
+                .Where(u => u.IdUsuario == id)
+                .Select(MapearUsuarioDto)
+                .SingleOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<List<Usuario>> ListarAsync()
+        public Task<List<UsuarioDto>> ListarAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Usuarios.ToListAsync();
+            return _context.Usuarios
+                .AsNoTracking()
+                .Select(MapearUsuarioDto)
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<UsuarioDto?> ObtenerUsuarioPorIdAsync(int idUsuario)
+        public Task<UsuarioDto?> ObtenerUsuarioPorCorreoAsync(string correo, CancellationToken cancellationToken = default)
         {
-            return await _context.Usuarios
-                .Where(u => u.IdUsuario == idUsuario)
-                .Select(u => new UsuarioDto
-                {
-                    IdUsuario = u.IdUsuario,
-                    CorreoElectronico = u.CorreoElectronico,
-                    MetodoAutenticacion = u.MetodoAutenticacion,
-                    TipoAcceso = u.TipoAcceso,
-                    Estado = u.Estado,
-                    FechaRegistro = u.FechaRegistro
-                })
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<UsuarioDto?> ObtenerUsuarioPorCorreoAsync(string correo)
-        {
-            return await _context.Usuarios
+            return _context.Usuarios
+                .AsNoTracking()
                 .Where(u => u.CorreoElectronico == correo)
-                .Select(u => new UsuarioDto
-                {
-                    IdUsuario = u.IdUsuario,
-                    CorreoElectronico = u.CorreoElectronico,
-                    MetodoAutenticacion = u.MetodoAutenticacion,
-                    TipoAcceso = u.TipoAcceso,
-                    Estado = u.Estado,
-                    FechaRegistro = u.FechaRegistro
-                })
-                .FirstOrDefaultAsync();
+                .Select(MapearUsuarioDto)
+                .SingleOrDefaultAsync(cancellationToken);
+        }
+
+        private static UsuarioDto MapearUsuarioDto(Usuario u)
+        {
+            return new UsuarioDto
+            {
+                IdUsuario = u.IdUsuario,
+                CorreoElectronico = u.CorreoElectronico,
+                MetodoAutenticacion = u.MetodoAutenticacion,
+                TipoAcceso = u.TipoAcceso,
+                Estado = u.Estado,
+                FechaRegistro = u.FechaRegistro
+            };
         }
     }
 }
