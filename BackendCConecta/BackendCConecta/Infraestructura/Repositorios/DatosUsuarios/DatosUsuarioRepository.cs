@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BackendCConecta.Aplicacion.Modulos.DatosUsuarios;
-using BackendCConecta.Infraestructura.Persistencia;
+using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using BackendCConecta.Dominio.Entidades.UsuariosDatos;
-
+using BackendCConecta.Infraestructura.Persistencia;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendCConecta.Infraestructura.Repositorios.DatosUsuarios;
 
@@ -15,42 +14,40 @@ public class DatosUsuarioRepository : IDatosUsuarioRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<DatosUsuario>> ObtenerTodosAsync()
+    public async Task<DatosUsuario> CrearAsync(DatosUsuario entidad, CancellationToken cancellationToken)
     {
-        return await _context.DatosUsuarios.ToListAsync();
+        await _context.DatosUsuarios.AddAsync(entidad, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+        return entidad;
     }
 
-    public async Task<DatosUsuario?> ObtenerPorIdAsync(int id)
+    public async Task<bool> ActualizarAsync(DatosUsuario entidad, CancellationToken cancellationToken)
     {
-        return await _context.DatosUsuarios.FindAsync(id);
+        _context.DatosUsuarios.Update(entidad);
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
 
-    public async Task<DatosUsuario?> ObtenerPorUsuarioIdAsync(int idUsuario)
+    public async Task<bool> EliminarAsync(int idDatosUsuario, CancellationToken cancellationToken)
     {
-        return await _context.DatosUsuarios
-            .FirstOrDefaultAsync(d => d.IdUsuario == idUsuario);
+        var entidad = await _context.DatosUsuarios.FindAsync(new object?[] { idDatosUsuario }, cancellationToken);
+        if (entidad is null)
+        {
+            return false;
+        }
+
+        _context.DatosUsuarios.Remove(entidad);
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
 
-    public async Task RegistrarAsync(DatosUsuario datos)
+    public async Task<DatosUsuario?> ObtenerPorIdAsync(int idDatosUsuario, CancellationToken cancellationToken)
     {
-        await _context.DatosUsuarios.AddAsync(datos);
-        await _context.SaveChangesAsync();
+        return await _context.DatosUsuarios.AsNoTracking()
+            .FirstOrDefaultAsync(d => d.IdDatosUsuario == idDatosUsuario, cancellationToken);
     }
 
-    public async Task<int> RegistrarYRetornarIdAsync(DatosUsuario datos)
+    public async Task<DatosUsuario?> ObtenerPorUsuarioIdAsync(int idUsuario, CancellationToken cancellationToken)
     {
-        await _context.DatosUsuarios.AddAsync(datos);
-        await _context.SaveChangesAsync();
-        return datos.IdDatosUsuario;
-    }
-
-    public void Actualizar(DatosUsuario datos)
-    {
-        _context.DatosUsuarios.Update(datos);
-    }
-
-    public void Eliminar(DatosUsuario datos)
-    {
-        _context.DatosUsuarios.Remove(datos);
+        return await _context.DatosUsuarios.AsNoTracking()
+            .FirstOrDefaultAsync(d => d.IdUsuario == idUsuario, cancellationToken);
     }
 }

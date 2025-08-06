@@ -3,8 +3,7 @@ using System.Net;
 using BackendCConecta.Aplicacion.InterfacesGenerales;
 
 
-namespace BackendCConecta.Infraestructura.Servicios
-{
+namespace BackendCConecta.Infraestructura.Servicios;
 
 public class EmailService : IEmailService
 {
@@ -37,7 +36,5 @@ public class EmailService : IEmailService
         };
 
         await smtp.SendMailAsync(mensaje);
-    }
-
     }
 }

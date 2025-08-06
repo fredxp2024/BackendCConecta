@@ -1,11 +1,10 @@
 ﻿using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.DTOs;
-using BackendCConecta. Aplicacion.Modulos.DatosUsuarios.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using AutoMapper;
 using BackendCConecta.Infraestructura.Persistencia;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace Infraestructura.Servicios.DatosUsuarios;
+namespace BackendCConecta.Infraestructura.Servicios.DatosUsuarios;
 
 public class DatosUsuarioQueryService : IDatosUsuarioQueryService
 {

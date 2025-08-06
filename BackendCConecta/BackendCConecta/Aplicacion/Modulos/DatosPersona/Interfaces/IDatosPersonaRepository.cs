@@ -1,4 +1,5 @@
-﻿
+﻿using BackendCConecta.Dominio.Entidades.Empresas;
+
 namespace BackendCConecta.Aplicacion.Modulos.DatosPersona.Interfaces;
 
 public interface IDatosPersonaRepository
