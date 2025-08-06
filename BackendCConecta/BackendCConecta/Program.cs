@@ -29,13 +29,14 @@ using BackendCConecta.Infraestructura.Repositorios.Usuarios;
 
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.DTOs;
-using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.validadores;
+using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Validadores;
 
 // ?? DatosPersona
 using BackendCConecta.Aplicacion.Modulos.DatosPersona.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.DatosPersona.DTOs;
 using BackendCConecta.Aplicacion.Modulos.DatosPersona.Validadores;
 using BackendCConecta.Infraestructura.Servicios.DatosPersona;
+using BackendCConecta.Infraestructura.Servicios.DatosUsuarios;
 
 using BackendCConecta.Infraestructura.Repositorios.DatosUsuarios;
 using BackendCConecta.Infraestructura.Repositorios.DatosPersona;
@@ -93,11 +94,16 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IDatosUsuarioRepository, DatosUsuarioRepository>();
+builder.Services.AddScoped<IDatosUsuarioQueryService, DatosUsuarioQueryService>();
+builder.Services.AddScoped<IDatosPersonaRepository, DatosPersonaRepository>();
+builder.Services.AddScoped<IDatosPersonaQueryService, DatosPersonaQueryService>();
 // 🗂️ FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 // 🧠 MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // ---------------------------------------------
 // 🔐 Autorización general

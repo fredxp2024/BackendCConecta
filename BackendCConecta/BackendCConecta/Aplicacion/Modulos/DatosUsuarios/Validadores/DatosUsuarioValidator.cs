@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Comandos;
 
-namespace BackendCConecta.Aplicacion.Modulos.DatosUsuarios.validadores;
+namespace BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Validadores;
 
 public class DatosUsuarioValidator : AbstractValidator<ActualizarDatosUsuarioCommand>
 {
