@@ -16,7 +16,7 @@ public class DatosPersonaQueryService : IDatosPersonaQueryService
 
     public async Task<IEnumerable<DatosPersonaDto>> ListarAsync()
     {
-        return await _context.DatosPersona
+        return await _context.DatosPersonas
             .AsNoTracking()
             .Select(p => new DatosPersonaDto
             {
@@ -31,7 +31,7 @@ public class DatosPersonaQueryService : IDatosPersonaQueryService
 
     public async Task<DatosPersonaDto?> ObtenerPorIdAsync(int idDatosUsuario)
     {
-        return await _context.DatosPersona
+        return await _context.DatosPersonas
             .AsNoTracking()
             .Where(p => p.IdDatosUsuario == idDatosUsuario)
             .Select(p => new DatosPersonaDto
