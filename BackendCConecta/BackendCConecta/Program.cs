@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 
 using BackendCConecta.Aplicacion.InterfacesGenerales;// o donde esté IUsuarioService
 using BackendCConecta.Infraestructura.Servicios;// o donde esté UsuarioService
@@ -47,6 +48,7 @@ using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Validadores;
 using BackendCConecta.Infraestructura.Repositorios.DatosEmpresa;
 using BackendCConecta.Infraestructura.Servicios.DatosEmpresa;
 using BackendCConecta.Api.Middlewares;
+using BackendCConecta.Api.Seguridad;
 
 
 
@@ -61,6 +63,13 @@ builder.Configuration
     .AddEnvironmentVariables();
 var config = builder.Configuration;
 
+// 🔐 Configuración de JwtSettings con validación
+builder.Services.AddOptions<JwtSettings>()
+    .Bind(config.GetSection("Jwt"))
+    .Validate(options => !string.IsNullOrEmpty(options.Key) && options.Key.Length >= 32,
+        "Jwt:Key debe tener al menos 32 caracteres")
+    .ValidateOnStart();
+
 // ---------------------------------------------
 // 1. CONFIGURACIÓN DE AUTENTICACIÓN JWT
 // ---------------------------------------------
@@ -72,7 +81,8 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    options.RequireHttpsMetadata = false;
+    var jwtSettings = config.GetSection("Jwt").Get<JwtSettings>();
+    options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -80,9 +90,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = config["Jwt:Issuer"],
-        ValidAudience = config["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]))
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
     };
 });
 
@@ -126,7 +136,12 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // ---------------------------------------------
 // 🔐 Autorización general
 // ---------------------------------------------
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Administrador", policy => policy.RequireClaim("rol", "administrador"));
+    options.AddPolicy("Colaborador", policy => policy.RequireClaim("rol", "colaborador"));
+    options.AddPolicy("Usuario", policy => policy.RequireClaim("rol", "usuario"));
+});
 
 // ---------------------------------------------
 // 🚀 Otros servicios esenciales
