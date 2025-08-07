@@ -1,6 +1,14 @@
-﻿namespace BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Comandos
+using MediatR;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.DTOs;
+
+namespace BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Comandos;
+
+public class CrearDatosEmpresaCommand : IRequest<int>
 {
-    public class CrearDatosEmpresaCommand
+    public CrearDatosEmpresaDto Datos { get; set; }
+
+    public CrearDatosEmpresaCommand(CrearDatosEmpresaDto datos)
     {
+        Datos = datos;
     }
 }

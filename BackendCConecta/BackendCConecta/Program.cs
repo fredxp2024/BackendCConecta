@@ -41,6 +41,11 @@ using BackendCConecta.Infraestructura.Servicios.DatosUsuarios;
 
 using BackendCConecta.Infraestructura.Repositorios.DatosUsuarios;
 using BackendCConecta.Infraestructura.Repositorios.DatosPersona;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.DTOs;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Validadores;
+using BackendCConecta.Infraestructura.Repositorios.DatosEmpresa;
+using BackendCConecta.Infraestructura.Servicios.DatosEmpresa;
 using BackendCConecta.Api.Middlewares;
 
 
@@ -109,6 +114,8 @@ builder.Services.AddScoped<IDatosUsuarioRepository, DatosUsuarioRepository>();
 builder.Services.AddScoped<IDatosUsuarioQueryService, DatosUsuarioQueryService>();
 builder.Services.AddScoped<IDatosPersonaRepository, DatosPersonaRepository>();
 builder.Services.AddScoped<IDatosPersonaQueryService, DatosPersonaQueryService>();
+builder.Services.AddScoped<IDatosEmpresaRepository, DatosEmpresaRepository>();
+builder.Services.AddScoped<IDatosEmpresaQueryService, DatosEmpresaQueryService>();
 // 🗂️ FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
