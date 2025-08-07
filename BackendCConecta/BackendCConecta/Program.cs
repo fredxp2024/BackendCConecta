@@ -24,6 +24,7 @@ using BackendCConecta.Aplicacion.Modulos.Usuarios.Interfaces;
 using BackendCConecta.Infraestructura.Servicios.Usuarios;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Repositorios.Usuarios;
+using BackendCConecta.Infraestructura.Repositorios;
 
 // ?? DatosUsuario
 
@@ -100,6 +101,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
 builder.Services.AddScoped<IDatosUsuarioRepository, DatosUsuarioRepository>();
 builder.Services.AddScoped<IDatosUsuarioQueryService, DatosUsuarioQueryService>();
 builder.Services.AddScoped<IDatosPersonaRepository, DatosPersonaRepository>();
