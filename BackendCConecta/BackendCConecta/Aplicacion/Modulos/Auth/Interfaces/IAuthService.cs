@@ -9,7 +9,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Interfaces
     /// </summary>
     public interface IAuthService
     {
-        Task<LoginResponseDto?> LoginAsync(LoginRequestDto request, CancellationToken cancellationToken = default);
+        Task<Result<LoginResponseDto>> LoginAsync(LoginRequestDto request, CancellationToken cancellationToken = default);
         Task<LoginResponseDto?> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default);
     }
 }
