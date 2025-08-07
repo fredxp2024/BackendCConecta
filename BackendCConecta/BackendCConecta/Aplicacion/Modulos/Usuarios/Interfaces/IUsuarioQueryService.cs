@@ -1,30 +1,17 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using BackendCConecta.Dominio.Entidades.Usuarios;
-using BackendCConecta.Aplicacion.Modulos.Usuarios.Interfaces;
-using BackendCConecta.Infraestructura.Persistencia;
+using BackendCConecta.Aplicacion.Modulos.Usuarios.DTOs;
 
-namespace BackendCConecta.Infraestructura.Servicios.Usuarios
+namespace BackendCConecta.Aplicacion.Modulos.Usuarios.Interfaces
 {
-    public class UsuarioQueryService : IUsuarioQueryService
+    /// <summary>
+    /// Define las operaciones de consulta para la entidad Usuario.
+    /// </summary>
+    public interface IUsuarioQueryService
     {
-        private readonly AppDbContext _context;
-
-        public UsuarioQueryService(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<Usuario?> ObtenerPorIdAsync(int id)
-        {
-            return await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.IdUsuario == id);
-        }
-
-        public async Task<List<Usuario>> ListarAsync()
-        {
-            return await _context.Usuarios.ToListAsync();
-        }
+        Task<UsuarioDto?> ObtenerUsuarioPorIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<UsuarioDto?> ObtenerUsuarioPorCorreoAsync(string correo, CancellationToken cancellationToken = default);
+        Task<List<UsuarioDto>> ListarAsync(CancellationToken cancellationToken = default);
     }
 }

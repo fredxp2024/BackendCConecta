@@ -20,7 +20,7 @@ namespace BackendCConecta.Infraestructura.Servicios.Usuarios
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<UsuarioDto?> ObtenerPorIdAsync(int id, CancellationToken cancellationToken = default)
+        public Task<UsuarioDto?> ObtenerUsuarioPorIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return _context.Usuarios
                 .AsNoTracking()

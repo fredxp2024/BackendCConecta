@@ -1,13 +1,13 @@
-﻿using MediatR;
+using MediatR;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.DTOs;
 
 namespace BackendCConecta.Aplicacion.Modulos.Usuarios.Consultas
 {
-    public class ObtenerUsuariosQuery : IRequest<UsuarioDto>
+    public class ObtenerUsuarioPorIdQuery : IRequest<UsuarioDto>
     {
-        public int IdUsuario { get; set; }
+        public int IdUsuario { get; }
 
-        public ObtenerUsuariosQuery(int idUsuario)
+        public ObtenerUsuarioPorIdQuery(int idUsuario)
         {
             IdUsuario = idUsuario;
         }
