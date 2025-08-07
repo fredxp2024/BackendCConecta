@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text;
+using System.Security.Claims;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -68,6 +69,8 @@ builder.Services.AddOptions<JwtSettings>()
     .Bind(config.GetSection("Jwt"))
     .Validate(options => !string.IsNullOrEmpty(options.Key) && options.Key.Length >= 32,
         "Jwt:Key debe tener al menos 32 caracteres")
+    .Validate(options => options.ExpirationMinutes > 0,
+        "Jwt:ExpirationMinutes debe ser mayor que cero")
     .ValidateOnStart();
 
 // ---------------------------------------------
@@ -90,6 +93,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        RoleClaimType = ClaimTypes.Role,
         ValidIssuer = jwtSettings.Issuer,
         ValidAudience = jwtSettings.Audience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
@@ -138,9 +142,9 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // ---------------------------------------------
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Administrador", policy => policy.RequireClaim("rol", "administrador"));
-    options.AddPolicy("Colaborador", policy => policy.RequireClaim("rol", "colaborador"));
-    options.AddPolicy("Usuario", policy => policy.RequireClaim("rol", "usuario"));
+    options.AddPolicy("Administrador", policy => policy.RequireClaim(ClaimTypes.Role, "administrador"));
+    options.AddPolicy("Colaborador", policy => policy.RequireClaim(ClaimTypes.Role, "colaborador"));
+    options.AddPolicy("Usuario", policy => policy.RequireClaim(ClaimTypes.Role, "usuario"));
 });
 
 // ---------------------------------------------

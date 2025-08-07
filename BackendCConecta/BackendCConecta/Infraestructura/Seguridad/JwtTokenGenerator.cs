@@ -26,7 +26,7 @@ namespace BackendCConecta.Infraestructura.Seguridad
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuario.IdUsuario.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoElectronico),
-                new Claim("rol", usuario.TipoAcceso),
+                new Claim(ClaimTypes.Role, usuario.TipoAcceso),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -37,7 +37,7 @@ namespace BackendCConecta.Infraestructura.Seguridad
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddHours(6),
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
