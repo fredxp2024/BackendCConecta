@@ -19,7 +19,11 @@ namespace BackendCConecta.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
             var result = await _authService.LoginAsync(request);
-            return Ok(result);
+            if (!result.Success)
+            {
+                return Unauthorized(new { message = result.Error });
+            }
+            return Ok(result.Data);
         }
 
         [HttpPost("refresh")]
