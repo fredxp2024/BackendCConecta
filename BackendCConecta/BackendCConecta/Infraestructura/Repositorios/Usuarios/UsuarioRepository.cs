@@ -2,7 +2,6 @@ using BackendCConecta.Dominio.Entidades.Usuarios;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Persistencia;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
 
 namespace BackendCConecta.Infraestructura.Repositorios.Usuarios;
 
@@ -18,6 +17,7 @@ public class UsuarioRepository : RepositorioGenerico<Usuario>, IUsuarioRepositor
     /// <inheritdoc />
     public async Task<Usuario?> ObtenerPorCorreoAsync(string correo, CancellationToken cancellationToken = default)
     {
-        return await _dbSet.FirstOrDefaultAsync(u => u.CorreoElectronico == correo, cancellationToken);
+        return await _dbSet.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.CorreoElectronico == correo, cancellationToken);
     }
 }
