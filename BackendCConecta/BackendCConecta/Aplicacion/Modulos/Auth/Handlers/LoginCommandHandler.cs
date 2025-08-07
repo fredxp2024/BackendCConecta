@@ -9,7 +9,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Handlers
 
 {
 
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponseDto>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponseDto?>
     {
         private readonly IAuthService _authService;
 
@@ -18,7 +18,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Handlers
             _authService = authService;
         }
 
-        public async Task<LoginResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginResponseDto?> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var loginRequest = new LoginRequestDto
             {
@@ -26,7 +26,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Handlers
                 Password = request.Password
             };
 
-            return await _authService.LoginAsync(loginRequest);
+            return await _authService.LoginAsync(loginRequest, cancellationToken);
         }
     }
 }
