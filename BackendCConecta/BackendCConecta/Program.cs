@@ -41,6 +41,7 @@ using BackendCConecta.Infraestructura.Servicios.DatosUsuarios;
 
 using BackendCConecta.Infraestructura.Repositorios.DatosUsuarios;
 using BackendCConecta.Infraestructura.Repositorios.DatosPersona;
+using BackendCConecta.Api.Middlewares;
 
 
 
@@ -132,8 +133,6 @@ builder.Services.AddSwaggerGen();
 // 4. CONFIGURACIÓN DE MIDDLEWARE
 // ---------------------------------------------
 
-
-
 // ---------------------------------------------
 // 🚀 Construcción de la app
 // ---------------------------------------------
@@ -147,6 +146,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // 🔐 Seguridad
 app.UseAuthentication(); // Siempre antes de Authorization

@@ -16,20 +16,37 @@ namespace BackendCConecta.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var result = await _authService.LoginAsync(request);
             if (!result.Success)
             {
                 return Unauthorized(new { message = result.Error });
             }
+
             return Ok(result.Data);
         }
 
         [HttpPost("refresh")]
-        public async Task<IActionResult> RefreshToken([FromBody] string refreshToken)
+        public async Task<ActionResult<LoginResponseDto>> RefreshToken([FromBody] string refreshToken)
         {
+            if (string.IsNullOrWhiteSpace(refreshToken))
+            {
+                return BadRequest();
+            }
+
             var result = await _authService.RefreshTokenAsync(refreshToken);
+            if (result is null)
+            {
+                return Unauthorized();
+            }
+
             return Ok(result);
         }
     }
