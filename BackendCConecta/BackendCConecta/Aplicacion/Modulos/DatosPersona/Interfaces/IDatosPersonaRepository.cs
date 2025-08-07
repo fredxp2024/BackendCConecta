@@ -1,4 +1,4 @@
-﻿using BackendCConecta.Dominio.Entidades.Empresas;
+using BackendCConecta.Dominio.Entidades.Personas;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosPersona.Interfaces;
 
@@ -9,3 +9,4 @@ public interface IDatosPersonaRepository
     Task EliminarAsync(int idDatosUsuario);
     Task<DatosPersona?> ObtenerPorIdAsync(int idDatosUsuario);
 }
+

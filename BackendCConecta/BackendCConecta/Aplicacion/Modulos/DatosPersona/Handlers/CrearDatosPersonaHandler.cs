@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosPersona.Comandos;
 using BackendCConecta.Aplicacion.Modulos.DatosPersona.Interfaces;
-using BackendCConecta.Dominio.Entidades.Usuarios;
+using BackendCConecta.Dominio.Entidades.Personas;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosPersona.Handlers;
 

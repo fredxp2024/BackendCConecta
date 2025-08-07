@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BackendCConecta.Dominio.Entidades.UsuariosDatos;
 
-namespace BackendCConecta.Dominio.Entidades.Empresas;
+namespace BackendCConecta.Dominio.Entidades.Personas;
 
 public partial class DatosPersona
 {

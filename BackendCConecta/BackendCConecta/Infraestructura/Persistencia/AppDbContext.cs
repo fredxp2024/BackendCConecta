@@ -21,6 +21,7 @@ using BackendCConecta.Dominio.Entidades.Contactos;
 
 // 🏢 Empresas y Personas
 using BackendCConecta.Dominio.Entidades.Empresas;
+using BackendCConecta.Dominio.Entidades.Personas;
 
 // 🎉 Eventos
 using BackendCConecta.Dominio.Entidades.Eventos;

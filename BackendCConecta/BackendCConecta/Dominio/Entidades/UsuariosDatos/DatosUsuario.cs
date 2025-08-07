@@ -9,6 +9,7 @@ using BackendCConecta.Dominio.Entidades.Roles;
 using BackendCConecta.Dominio.Entidades.Paquetes;
 using BackendCConecta.Dominio.Entidades.Usuarios;
 using BackendCConecta.Dominio.Entidades.Empresas;
+using BackendCConecta.Dominio.Entidades.Personas;
 
 namespace BackendCConecta.Dominio.Entidades.UsuariosDatos;
 
