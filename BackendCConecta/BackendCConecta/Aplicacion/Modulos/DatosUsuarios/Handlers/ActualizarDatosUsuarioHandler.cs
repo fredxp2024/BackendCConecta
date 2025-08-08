@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Comandos;
-using BackendCConecta.Infraestructura.Persistencia;
-using Microsoft.EntityFrameworkCore;
+using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,16 +8,16 @@ namespace BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Handlers
 {
     public class ActualizarDatosUsuarioHandler : IRequestHandler<ActualizarDatosUsuarioCommand, bool>
 {
-    private readonly AppDbContext _context;
+    private readonly IDatosUsuarioRepository _repository;
 
-    public ActualizarDatosUsuarioHandler(AppDbContext context)
+    public ActualizarDatosUsuarioHandler(IDatosUsuarioRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
     public async Task<bool> Handle(ActualizarDatosUsuarioCommand request, CancellationToken cancellationToken)
     {
-        var datos = await _context.DatosUsuarios.FirstOrDefaultAsync(d => d.IdDatosUsuario == request.IdDatosUsuario, cancellationToken);
+        var datos = await _repository.ObtenerAsync(request.IdDatosUsuario, null, cancellationToken);
         if (datos == null) return false;
 
         datos.Celular = request.Celular;
@@ -27,8 +26,7 @@ namespace BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Handlers
         datos.EstadoColaborador = request.EstadoColaborador;
         datos.EstadoGeneral = request.EstadoGeneral;
 
-        await _context.SaveChangesAsync(cancellationToken);
-        return true;
+        return await _repository.ActualizarAsync(datos, cancellationToken);
     }
 }
 }

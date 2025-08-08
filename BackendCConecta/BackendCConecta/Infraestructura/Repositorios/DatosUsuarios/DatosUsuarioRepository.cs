@@ -2,6 +2,7 @@ using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using BackendCConecta.Dominio.Entidades.UsuariosDatos;
 using BackendCConecta.Infraestructura.Persistencia;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace BackendCConecta.Infraestructura.Repositorios.DatosUsuarios;
 
@@ -39,15 +40,16 @@ public class DatosUsuarioRepository : IDatosUsuarioRepository
         return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
 
-    public async Task<DatosUsuario?> ObtenerPorIdAsync(int idDatosUsuario, CancellationToken cancellationToken)
+    public async Task<List<DatosUsuario>> ListarAsync(CancellationToken cancellationToken)
     {
-        return await _context.DatosUsuarios.AsNoTracking()
-            .FirstOrDefaultAsync(d => d.IdDatosUsuario == idDatosUsuario, cancellationToken);
+        return await _context.DatosUsuarios.AsNoTracking().ToListAsync(cancellationToken);
     }
 
-    public async Task<DatosUsuario?> ObtenerPorUsuarioIdAsync(int idUsuario, CancellationToken cancellationToken)
+    public async Task<DatosUsuario?> ObtenerAsync(int? idDatosUsuario, int? idUsuario, CancellationToken cancellationToken)
     {
         return await _context.DatosUsuarios.AsNoTracking()
-            .FirstOrDefaultAsync(d => d.IdUsuario == idUsuario, cancellationToken);
+            .FirstOrDefaultAsync(d =>
+                (!idDatosUsuario.HasValue || d.IdDatosUsuario == idDatosUsuario) &&
+                (!idUsuario.HasValue || d.IdUsuario == idUsuario), cancellationToken);
     }
 }

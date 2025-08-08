@@ -35,7 +35,17 @@ public class DatosUsuarioController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new ObtenerDatosUsuarioPorIdQuery(id), cancellationToken);
+        var result = await _mediator.Send(new ObtenerDatosUsuarioQuery(idDatosUsuario: id), cancellationToken);
+        return result is null ? NotFound() : Ok(result);
+    }
+
+    /// <summary>
+    /// Obtener un dato de usuario por IdUsuario
+    /// </summary>
+    [HttpGet("usuario/{idUsuario:int}")]
+    public async Task<IActionResult> GetByUserId(int idUsuario, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new ObtenerDatosUsuarioQuery(idUsuario: idUsuario), cancellationToken);
         return result is null ? NotFound() : Ok(result);
     }
 
