@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 
+using BackendCConecta.Aplicacion.Comportamientos;
 using BackendCConecta.Aplicacion.InterfacesGenerales;// o donde esté IUsuarioService
 using BackendCConecta.Infraestructura.Servicios;// o donde esté UsuarioService
 
@@ -136,6 +137,8 @@ builder.Services.AddScoped<IDatosEmpresaRepository, DatosEmpresaRepository>();
 builder.Services.AddScoped<IDatosEmpresaQueryService, DatosEmpresaQueryService>();
 builder.Services.AddScoped<ICampaniaCommandService, CampaniaService>();
 builder.Services.AddScoped<ICampaniaQueryService, CampaniaService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 // 🗂️ FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
