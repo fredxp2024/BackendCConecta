@@ -9,7 +9,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Campanias.Services;
 /// <summary>
 /// Service implementation responsible for campaign business logic.
 /// </summary>
-public class CampaniaService : ICampaniaService
+public class CampaniaService : ICampaniaCommandService, ICampaniaQueryService
 {
     private readonly AppDbContext _context;
 

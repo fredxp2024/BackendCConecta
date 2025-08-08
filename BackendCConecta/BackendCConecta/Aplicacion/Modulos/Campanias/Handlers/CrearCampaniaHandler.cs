@@ -10,11 +10,11 @@ namespace BackendCConecta.Aplicacion.Modulos.Campanias.Handlers;
 /// </summary>
 public class CrearCampaniaHandler : IRequestHandler<CrearCampaniaCommand, int>
 {
-    private readonly ICampaniaService _campaniaService;
+    private readonly ICampaniaCommandService _campaniaCommandService;
 
-    public CrearCampaniaHandler(ICampaniaService campaniaService)
+    public CrearCampaniaHandler(ICampaniaCommandService campaniaCommandService)
     {
-        _campaniaService = campaniaService;
+        _campaniaCommandService = campaniaCommandService;
     }
 
     /// <inheritdoc />
@@ -32,7 +32,7 @@ public class CrearCampaniaHandler : IRequestHandler<CrearCampaniaCommand, int>
             IdStaff = request.IdStaff
         };
 
-        return _campaniaService.CrearCampaniaAsync(dto);
+        return _campaniaCommandService.CrearCampaniaAsync(dto);
     }
 }
 

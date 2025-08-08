@@ -12,7 +12,7 @@ public class CrearCampaniaHandlerTests
     [Fact]
     public async Task Handle_DelegatesToService()
     {
-        var service = new Mock<ICampaniaService>();
+        var service = new Mock<ICampaniaCommandService>();
         service.Setup(s => s.CrearCampaniaAsync(It.IsAny<CampaniaDTO>())).ReturnsAsync(1);
 
         var handler = new CrearCampaniaHandler(service.Object);

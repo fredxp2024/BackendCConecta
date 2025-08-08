@@ -10,15 +10,15 @@ namespace BackendCConecta.Aplicacion.Modulos.Campanias.Handlers;
 /// </summary>
 public class ObtenerCampaniasHandler : IRequestHandler<ObtenerCampaniasQuery, IReadOnlyList<CampaniaDTO>>
 {
-    private readonly ICampaniaService _campaniaService;
+    private readonly ICampaniaQueryService _campaniaQueryService;
 
-    public ObtenerCampaniasHandler(ICampaniaService campaniaService)
+    public ObtenerCampaniasHandler(ICampaniaQueryService campaniaQueryService)
     {
-        _campaniaService = campaniaService;
+        _campaniaQueryService = campaniaQueryService;
     }
 
     /// <inheritdoc />
     public Task<IReadOnlyList<CampaniaDTO>> Handle(ObtenerCampaniasQuery request, CancellationToken cancellationToken)
-        => _campaniaService.ObtenerCampaniasAsync();
+        => _campaniaQueryService.ObtenerCampaniasAsync();
 }
 
