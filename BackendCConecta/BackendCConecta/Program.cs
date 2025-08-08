@@ -16,6 +16,10 @@ using BackendCConecta.Infraestructura.Servicios;// o donde esté UsuarioService
 using BackendCConecta.Aplicacion.Modulos.Campanias.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Services;
 
+// 📅 Fechas Importantes
+using BackendCConecta.Aplicacion.Modulos.FechasImportantes.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.FechasImportantes.Services;
+
 // ?? Autenticación
 using BackendCConecta.Aplicacion.Modulos.Auth.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.Auth.Servicios;
@@ -137,6 +141,7 @@ builder.Services.AddScoped<IDatosEmpresaRepository, DatosEmpresaRepository>();
 builder.Services.AddScoped<IDatosEmpresaQueryService, DatosEmpresaQueryService>();
 builder.Services.AddScoped<ICampaniaCommandService, CampaniaService>();
 builder.Services.AddScoped<ICampaniaQueryService, CampaniaService>();
+builder.Services.AddScoped<IFechasImportantesService, FechasImportantesService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 // 🗂️ FluentValidation
