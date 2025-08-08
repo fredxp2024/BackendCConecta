@@ -18,18 +18,12 @@ public class DatosEmpresaQueryService : IDatosEmpresaQueryService
     {
         return await _context.DatosEmpresas
             .AsNoTracking()
-            .Include(e => e.IdDatosUsuarioNavigation)
-                .ThenInclude(u => u.DatosPersona)
             .Select(e => new DatosEmpresaDto
             {
                 IdDatosUsuario = e.IdDatosUsuario,
                 RazonSocial = e.RazonSocial,
-                Ruc = e.Ruc ?? string.Empty,
-                PaginaWeb = e.PaginaWeb,
-                Nombres = e.IdDatosUsuarioNavigation.DatosPersona != null ? e.IdDatosUsuarioNavigation.DatosPersona.Nombres : null,
-                ApellidoPaterno = e.IdDatosUsuarioNavigation.DatosPersona?.ApellidoPaterno,
-                ApellidoMaterno = e.IdDatosUsuarioNavigation.DatosPersona?.ApellidoMaterno,
-                Dni = e.IdDatosUsuarioNavigation.DatosPersona?.Dni
+                Ruc = e.Ruc,
+                PaginaWeb = e.PaginaWeb
             })
             .ToListAsync();
     }
@@ -39,18 +33,12 @@ public class DatosEmpresaQueryService : IDatosEmpresaQueryService
         return await _context.DatosEmpresas
             .AsNoTracking()
             .Where(e => e.IdDatosUsuario == idDatosUsuario)
-            .Include(e => e.IdDatosUsuarioNavigation)
-                .ThenInclude(u => u.DatosPersona)
             .Select(e => new DatosEmpresaDto
             {
                 IdDatosUsuario = e.IdDatosUsuario,
                 RazonSocial = e.RazonSocial,
-                Ruc = e.Ruc ?? string.Empty,
-                PaginaWeb = e.PaginaWeb,
-                Nombres = e.IdDatosUsuarioNavigation.DatosPersona != null ? e.IdDatosUsuarioNavigation.DatosPersona.Nombres : null,
-                ApellidoPaterno = e.IdDatosUsuarioNavigation.DatosPersona?.ApellidoPaterno,
-                ApellidoMaterno = e.IdDatosUsuarioNavigation.DatosPersona?.ApellidoMaterno,
-                Dni = e.IdDatosUsuarioNavigation.DatosPersona?.Dni
+                Ruc = e.Ruc,
+                PaginaWeb = e.PaginaWeb
             })
             .FirstOrDefaultAsync();
     }
