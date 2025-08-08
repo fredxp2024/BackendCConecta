@@ -11,6 +11,10 @@ using Microsoft.Extensions.Options;
 using BackendCConecta.Aplicacion.InterfacesGenerales;// o donde esté IUsuarioService
 using BackendCConecta.Infraestructura.Servicios;// o donde esté UsuarioService
 
+// 📆 Campañas
+using BackendCConecta.Aplicacion.Modulos.Campanias.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.Campanias.Services;
+
 // ?? Autenticación
 using BackendCConecta.Aplicacion.Modulos.Auth.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.Auth.Servicios;
@@ -130,6 +134,7 @@ builder.Services.AddScoped<IDatosPersonaRepository, DatosPersonaRepository>();
 builder.Services.AddScoped<IDatosPersonaQueryService, DatosPersonaQueryService>();
 builder.Services.AddScoped<IDatosEmpresaRepository, DatosEmpresaRepository>();
 builder.Services.AddScoped<IDatosEmpresaQueryService, DatosEmpresaQueryService>();
+builder.Services.AddScoped<ICampaniaService, CampaniaService>();
 // 🗂️ FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
