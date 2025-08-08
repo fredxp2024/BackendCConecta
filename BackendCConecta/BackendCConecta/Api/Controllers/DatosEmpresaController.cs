@@ -1,9 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Comandos;
-using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Consultas;
-using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.DTOs;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Comandos;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Consultas;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.DTOs;
 
 namespace BackendCConecta.Api.Controllers;
 

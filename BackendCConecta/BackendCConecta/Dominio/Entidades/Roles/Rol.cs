@@ -22,5 +22,5 @@ public partial class Rol
 
     public virtual ICollection<AccionesAdministrador> AccionesAdministradors { get; set; } = new List<AccionesAdministrador>();
 
-    public virtual ICollection<UsuariosRol> UsuariosRoles { get; set; } = new List<UsuariosRol>();
+    public virtual ICollection<UsuarioRol> UsuariosRoles { get; set; } = new List<UsuarioRol>();
 }

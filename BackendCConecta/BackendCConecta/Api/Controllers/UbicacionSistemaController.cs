@@ -1,17 +1,17 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Comandos;
-using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Handlers;
-using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Consultas;
-using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.DTOs;
+using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
+using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers;
+using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Consultas;
+using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.DTOs;
 using System.Threading.Tasks;
 
 namespace BackendCConecta.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // Aplica autenticaci髇 por JWT, puedes usar [Authorize(Roles = "Administrador")] si deseas limitar por rol
+    [Authorize] // Aplica autenticaci贸n por JWT, puedes usar [Authorize(Roles = "Administrador")] si deseas limitar por rol
     public class UbicacionSistemaController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -22,7 +22,7 @@ namespace BackendCConecta.Api.Controllers
         }
 
         /// <summary>
-        /// Crear una nueva ubicaci髇
+        /// Crear una nueva ubicaci贸n
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> Crear([FromBody] CrearUbicacionSistemaCommand comando)
@@ -32,7 +32,7 @@ namespace BackendCConecta.Api.Controllers
         }
 
         /// <summary>
-        /// Obtener ubicaci髇 por ID
+        /// Obtener ubicaci贸n por ID
         /// </summary>
         [HttpGet("{id}")]
         public async Task<IActionResult> ObtenerPorId(int id)
@@ -54,7 +54,7 @@ namespace BackendCConecta.Api.Controllers
         }
 
         /// <summary>
-        /// Actualizar una ubicaci髇 existente
+        /// Actualizar una ubicaci贸n existente
         /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> Actualizar(int id, [FromBody] ActualizarUbicacionSistemaCommand comando)
@@ -67,7 +67,7 @@ namespace BackendCConecta.Api.Controllers
         }
 
         /// <summary>
-        /// Eliminar una ubicaci髇
+        /// Eliminar una ubicaci贸n
         /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Eliminar(int id)

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using BackendCConecta.Dominio.Entidades.Negocios;
 
-
-namespace BackendCConecta.Dominio.Entidades.negocios;
+namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Publicaciones;
 
 public class NegocioConfiguration : IEntityTypeConfiguration<Negocio>
 {

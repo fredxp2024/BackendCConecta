@@ -12,11 +12,11 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Campanias
 
             builder.HasKey(ur => ur.IdUsuarioRol);
 
-            builder.HasOne(ur => ur.DatosUsuario)
+            builder.HasOne(ur => ur.IdDatosUsuarioNavigation)
                    .WithMany(d => d.UsuariosRoles)
                    .HasForeignKey(ur => ur.IdDatosUsuario);
 
-            builder.HasOne(ur => ur.Rol)
+            builder.HasOne(ur => ur.IdRolNavigation)
                    .WithMany(r => r.UsuariosRoles)
                    .HasForeignKey(ur => ur.IdRol);
 

@@ -12,7 +12,7 @@ namespace BackendCConecta.Aplicacion.Comportamientos
     /// Comportamiento de pipeline que envuelve comandos en una transacción.
     /// </summary>
     public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+        where TRequest : notnull
     {
         private readonly ITransactionService _transactionService;
         private readonly ILogger<TransactionBehavior<TRequest, TResponse>> _logger;
@@ -23,19 +23,19 @@ namespace BackendCConecta.Aplicacion.Comportamientos
             _logger = logger;
         }
 
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
             var isCommand = requestName.EndsWith("Command", StringComparison.InvariantCulture);
 
             if (!isCommand)
             {
-                return next();
+                return await next();
             }
 
             using (_logger.BeginScope(new Dictionary<string, object> { ["RequestName"] = requestName }))
             {
-                return _transactionService.ExecuteAsync(async () =>
+                return await _transactionService.ExecuteAsync(async () =>
                 {
                     _logger.LogInformation("Starting transaction for {RequestName}", requestName);
                     var response = await next();

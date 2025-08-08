@@ -1,0 +1,36 @@
+﻿using MediatR;
+using BackendCConecta.Aplicacion.Modulos.DatosPersonas.Comandos;
+using BackendCConecta.Aplicacion.Modulos.DatosPersonas.Interfaces;
+using BackendCConecta.Dominio.Entidades.Personas;
+
+namespace BackendCConecta.Aplicacion.Modulos.DatosPersonas.Handlers;
+
+public class ActualizarDatosPersonaHandler : IRequestHandler<ActualizarDatosPersonaCommand>
+{
+    private readonly IDatosPersonaRepository _repository;
+
+    public ActualizarDatosPersonaHandler(IDatosPersonaRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<Unit> Handle(ActualizarDatosPersonaCommand request, CancellationToken cancellationToken)
+    {
+        var persona = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario);
+        ValidarExistencia(persona);
+
+        persona.Nombres = request.Datos.Nombres;
+        persona.ApellidoPaterno = request.Datos.ApellidoPaterno;
+        persona.ApellidoMaterno = request.Datos.ApellidoMaterno;
+        persona.Dni = request.Datos.Dni;
+
+        await _repository.ActualizarAsync(persona);
+        return Unit.Value;
+    }
+
+    private static void ValidarExistencia(DatosPersona? persona)
+    {
+        if (persona == null)
+            throw new KeyNotFoundException("DatosPersona no encontrada.");
+    }
+}

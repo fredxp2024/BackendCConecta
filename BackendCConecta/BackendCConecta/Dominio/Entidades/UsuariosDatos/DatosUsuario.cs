@@ -55,5 +55,5 @@ public partial class DatosUsuario
 
     public virtual StaffAdministrativo? StaffAdministrativo { get; set; }
 
-    public virtual ICollection<UsuariosRol> UsuariosRoles { get; set; } = new List<UsuariosRol>();
+    public virtual ICollection<UsuarioRol> UsuariosRoles { get; set; } = new List<UsuarioRol>();
 }
