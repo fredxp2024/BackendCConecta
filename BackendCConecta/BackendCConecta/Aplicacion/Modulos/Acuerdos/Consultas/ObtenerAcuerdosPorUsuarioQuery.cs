@@ -1,6 +1,10 @@
-﻿namespace BackendCConecta.Aplicacion.Modulos.Acuerdos.Consultas
+using MediatR;
+using BackendCConecta.Aplicacion.Modulos.Acuerdos.DTOs;
+using System.Collections.Generic;
+
+namespace BackendCConecta.Aplicacion.Modulos.Acuerdos.Consultas;
+
+public class ObtenerAcuerdosPorUsuarioQuery : IRequest<List<AcuerdoDto>>
 {
-    public class ObtenerAcuerdosPorUsuarioQuery
-    {
-    }
+    public int IdDatosUsuario { get; set; }
 }
