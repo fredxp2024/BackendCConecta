@@ -3,6 +3,7 @@ using MediatR;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.Comandos;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.Consultas;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.DTOs;
+using BackendCConecta.Api.Responses;
 
 namespace BackendCConecta.Api.Controllers
 {
@@ -26,7 +27,8 @@ namespace BackendCConecta.Api.Controllers
         public async Task<IActionResult> Registrar([FromBody] RegistrarUsuarioCommand command)
         {
             var resultado = await _mediator.Send(command);
-            return CreatedAtAction(nameof(ObtenerPorId), new { id = resultado.IdUsuario }, resultado);
+            var response = ApiResponse<UsuarioDto>.SuccessResponse(resultado);
+            return CreatedAtAction(nameof(ObtenerPorId), new { id = resultado.IdUsuario }, response);
         }
 
         /// <summary>
@@ -39,7 +41,7 @@ namespace BackendCConecta.Api.Controllers
         public async Task<IActionResult> Actualizar(int id, [FromBody] ActualizarUsuarioCommand command)
         {
             if (id != command.IdUsuario)
-                return BadRequest("El ID de la URL no coincide con el del cuerpo de la solicitud.");
+                return BadRequest(ApiResponse<string>.Failure("El ID de la URL no coincide con el del cuerpo de la solicitud."));
 
             await _mediator.Send(command);
             return NoContent();
@@ -62,10 +64,10 @@ namespace BackendCConecta.Api.Controllers
         /// </summary>
         /// <returns>Lista de usuarios.</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UsuarioDto>>> Listar()
+        public async Task<IActionResult> Listar()
         {
             var usuarios = await _mediator.Send(new ListarUsuariosQuery());
-            return Ok(usuarios);
+            return Ok(ApiResponse<IEnumerable<UsuarioDto>>.SuccessResponse(usuarios));
         }
 
         /// <summary>
@@ -74,14 +76,14 @@ namespace BackendCConecta.Api.Controllers
         /// <param name="id">ID del usuario.</param>
         /// <returns>Usuario encontrado o 404 si no existe.</returns>
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<UsuarioDto>> ObtenerPorId(int id)
+        public async Task<IActionResult> ObtenerPorId(int id)
         {
             var usuario = await _mediator.Send(new ObtenerUsuarioPorIdQuery(id));
 
             if (usuario is null)
-                return NotFound();
+                return NotFound(ApiResponse<UsuarioDto>.Failure("Usuario no encontrado"));
 
-            return Ok(usuario);
+            return Ok(ApiResponse<UsuarioDto>.SuccessResponse(usuario));
         }
     }
 }

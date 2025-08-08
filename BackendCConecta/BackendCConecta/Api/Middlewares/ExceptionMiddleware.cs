@@ -2,6 +2,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using BackendCConecta.Api.Responses;
 
 namespace BackendCConecta.Api.Middlewares
 {
@@ -29,7 +30,7 @@ namespace BackendCConecta.Api.Middlewares
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
 
-                var response = new { message = "Ocurrió un error interno." };
+                var response = ApiResponse<string>.Failure("Ocurrió un error interno.");
                 await context.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
         }
