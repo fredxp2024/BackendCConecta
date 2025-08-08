@@ -1,6 +1,6 @@
 using BackendCConecta.Aplicacion.Modulos.Acuerdos.Interfaces;
 using BackendCConecta.Dominio.Entidades.Acuerdos;
-using BackendCConecta.Infraestructura.Repositorios.Acuerdos;
+using BackendCConecta.Dominio.Repositorios;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,9 +8,9 @@ namespace BackendCConecta.Infraestructura.Servicios.Acuerdos;
 
 public class AcuerdoComercialQueryService : IAcuerdoQueryService
 {
-    private readonly AcuerdoRepository _repository;
+    private readonly IAcuerdoRepository _repository;
 
-    public AcuerdoComercialQueryService(AcuerdoRepository repository)
+    public AcuerdoComercialQueryService(IAcuerdoRepository repository)
     {
         _repository = repository;
     }

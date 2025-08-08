@@ -13,8 +13,8 @@ public class EliminarAcuerdoHandler : IRequestHandler<EliminarAcuerdoComercialCo
         _service = service;
     }
 
-    public Task<bool> Handle(EliminarAcuerdoComercialCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(EliminarAcuerdoComercialCommand request, CancellationToken cancellationToken)
     {
-        return _service.EliminarAsync(request.Id);
+        return await _service.EliminarAsync(request.Id);
     }
 }
