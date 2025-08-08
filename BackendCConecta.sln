@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendCConecta", "BackendCConecta\BackendCConecta.csproj", "{1C875650-1480-4A21-B8F7-62536A3AAC0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendCConecta", "src\BackendCConecta\BackendCConecta.csproj", "{1C875650-1480-4A21-B8F7-62536A3AAC0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendCConecta.Tests", "BackendCConecta.Tests\BackendCConecta.Tests.csproj", "{B22166AD-79B4-4FD0-AA41-7265C6658739}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendCConecta.Tests", "src\BackendCConecta.Tests\BackendCConecta.Tests.csproj", "{B22166AD-79B4-4FD0-AA41-7265C6658739}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
