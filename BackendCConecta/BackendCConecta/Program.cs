@@ -134,7 +134,8 @@ builder.Services.AddScoped<IDatosPersonaRepository, DatosPersonaRepository>();
 builder.Services.AddScoped<IDatosPersonaQueryService, DatosPersonaQueryService>();
 builder.Services.AddScoped<IDatosEmpresaRepository, DatosEmpresaRepository>();
 builder.Services.AddScoped<IDatosEmpresaQueryService, DatosEmpresaQueryService>();
-builder.Services.AddScoped<ICampaniaService, CampaniaService>();
+builder.Services.AddScoped<ICampaniaCommandService, CampaniaService>();
+builder.Services.AddScoped<ICampaniaQueryService, CampaniaService>();
 // 🗂️ FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 

@@ -3,17 +3,10 @@ using BackendCConecta.Aplicacion.Modulos.Campanias.DTOs;
 namespace BackendCConecta.Aplicacion.Modulos.Campanias.Interfaces;
 
 /// <summary>
-/// Define operations related to campaign management.
+/// Defines operations related to retrieving campaign data.
 /// </summary>
-public interface ICampaniaService
+public interface ICampaniaQueryService
 {
-    /// <summary>
-    /// Persists a new campaign.
-    /// </summary>
-    /// <param name="campania">Information for the campaign to create.</param>
-    /// <returns>The identifier of the created campaign.</returns>
-    Task<int> CrearCampaniaAsync(CampaniaDTO campania);
-
     /// <summary>
     /// Retrieves all campaigns registered in the system.
     /// </summary>
