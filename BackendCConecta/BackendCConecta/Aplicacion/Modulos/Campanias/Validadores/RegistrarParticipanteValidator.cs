@@ -3,9 +3,9 @@ using BackendCConecta.Aplicacion.Modulos.Campanias.Comandos;
 
 namespace BackendCConecta.Aplicacion.Modulos.Campanias.Validadores;
 
-public class CrearCampaniaValidator : AbstractValidator<CrearCampaniaCommand>
+public class RegistrarParticipanteValidator : AbstractValidator<RegistrarParticipanteCommand>
 {
-    public CrearCampaniaValidator()
+    public RegistrarParticipanteValidator()
     {
         // No rules defined yet.
     }

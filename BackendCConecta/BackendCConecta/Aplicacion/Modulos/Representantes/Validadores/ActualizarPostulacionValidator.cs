@@ -3,9 +3,9 @@ using BackendCConecta.Aplicacion.Modulos.Representantes.Comandos;
 
 namespace BackendCConecta.Aplicacion.Modulos.Representantes.Validadores;
 
-public class RegistrarRepresentanteValidator : AbstractValidator<RegistrarRepresentanteCommand>
+public class ActualizarPostulacionValidator : AbstractValidator<ActualizarPostulacionCommand>
 {
-    public RegistrarRepresentanteValidator()
+    public ActualizarPostulacionValidator()
     {
         // No rules defined yet.
     }

@@ -1,6 +1,7 @@
 using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Comandos;
 using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Interfaces;
+using BackendCConecta.Dominio.Entidades.Empresas;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Handlers;
 
@@ -15,8 +16,8 @@ public class ActualizarDatosEmpresaHandler : IRequestHandler<ActualizarDatosEmpr
 
     public async Task<Unit> Handle(ActualizarDatosEmpresaCommand request, CancellationToken cancellationToken)
     {
-        var empresa = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario)
-                      ?? throw new KeyNotFoundException("DatosEmpresa no encontrada.");
+        var empresa = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario);
+        ValidarExistencia(empresa);
 
         empresa.RazonSocial = request.Datos.RazonSocial;
         empresa.Ruc = request.Datos.Ruc;
@@ -24,5 +25,11 @@ public class ActualizarDatosEmpresaHandler : IRequestHandler<ActualizarDatosEmpr
 
         await _repository.ActualizarAsync(empresa);
         return Unit.Value;
+    }
+
+    private static void ValidarExistencia(DatosEmpresa? empresa)
+    {
+        if (empresa == null)
+            throw new KeyNotFoundException("DatosEmpresa no encontrada.");
     }
 }
