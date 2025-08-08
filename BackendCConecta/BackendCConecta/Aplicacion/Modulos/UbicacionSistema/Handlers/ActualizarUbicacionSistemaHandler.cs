@@ -23,9 +23,7 @@ namespace BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Handlers
         public async Task<UbicacionSistemaDto> Handle(ActualizarUbicacionSistemaCommand request, CancellationToken cancellationToken)
         {
             var entidad = await _repository.ObtenerPorIdAsync(request.IdUbicacion);
-
-            if (entidad == null)
-                throw new KeyNotFoundException("Ubicación no encontrada.");
+            ValidarExistencia(entidad);
 
             entidad.Pais = request.Pais;
             entidad.Nivel1Region = request.Nivel1Region;
@@ -38,6 +36,12 @@ namespace BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Handlers
             await _repository.ActualizarAsync(entidad);
 
             return _mapper.Map<UbicacionSistemaDto>(entidad);
+        }
+
+        private static void ValidarExistencia(UbicacionesSistema? entidad)
+        {
+            if (entidad == null)
+                throw new KeyNotFoundException("Ubicación no encontrada.");
         }
     }
 }

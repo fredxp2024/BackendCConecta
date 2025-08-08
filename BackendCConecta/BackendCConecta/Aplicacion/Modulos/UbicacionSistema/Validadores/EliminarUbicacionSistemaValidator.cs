@@ -3,14 +3,11 @@ using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Comandos;
 
 namespace BackendCConecta.Aplicacion.Modulos.UbicacionSistema.Validadores;
 
-public class ActualizarUbicacionSistemaValidator : AbstractValidator<ActualizarUbicacionSistemaCommand>
+public class EliminarUbicacionSistemaValidator : AbstractValidator<EliminarUbicacionSistemaCommand>
 {
-    public ActualizarUbicacionSistemaValidator()
+    public EliminarUbicacionSistemaValidator()
     {
         RuleFor(x => x.IdUbicacion)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-
-        RuleFor(x => x.Pais)
-            .NotEmpty().WithMessage("El país es obligatorio.");
     }
 }
