@@ -26,7 +26,7 @@ namespace BackendCConecta.Infraestructura.Seguridad
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuario.IdUsuario.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoElectronico),
-                new Claim(ClaimTypes.Role, usuario.TipoAcceso),
+                new Claim(ClaimTypes.Role, usuario.TipoAcceso.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

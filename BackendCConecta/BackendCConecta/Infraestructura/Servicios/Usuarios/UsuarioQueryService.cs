@@ -52,9 +52,9 @@ namespace BackendCConecta.Infraestructura.Servicios.Usuarios
             {
                 IdUsuario = u.IdUsuario,
                 CorreoElectronico = u.CorreoElectronico,
-                MetodoAutenticacion = u.MetodoAutenticacion,
-                TipoAcceso = u.TipoAcceso,
-                Estado = u.Estado,
+                MetodoAutenticacion = u.MetodoAutenticacion.ToString(),
+                TipoAcceso = u.TipoAcceso.ToString(),
+                Estado = u.Estado.ToString(),
                 FechaRegistro = u.FechaRegistro
             };
         }
