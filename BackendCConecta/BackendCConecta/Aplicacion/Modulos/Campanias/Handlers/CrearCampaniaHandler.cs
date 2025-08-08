@@ -1,3 +1,4 @@
+using AutoMapper;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Comandos;
 using BackendCConecta.Aplicacion.Modulos.Campanias.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Interfaces;
@@ -11,27 +12,18 @@ namespace BackendCConecta.Aplicacion.Modulos.Campanias.Handlers;
 public class CrearCampaniaHandler : IRequestHandler<CrearCampaniaCommand, int>
 {
     private readonly ICampaniaCommandService _campaniaCommandService;
+    private readonly IMapper _mapper;
 
-    public CrearCampaniaHandler(ICampaniaCommandService campaniaCommandService)
+    public CrearCampaniaHandler(ICampaniaCommandService campaniaCommandService, IMapper mapper)
     {
         _campaniaCommandService = campaniaCommandService;
+        _mapper = mapper;
     }
 
     /// <inheritdoc />
     public Task<int> Handle(CrearCampaniaCommand request, CancellationToken cancellationToken)
     {
-        var dto = new CampaniaDTO
-        {
-            Titulo = request.Titulo,
-            Descripcion = request.Descripcion,
-            TipoCampania = request.TipoCampania,
-            FechaInicio = request.FechaInicio,
-            FechaFin = request.FechaFin,
-            Estado = request.Estado,
-            IdUbicacion = request.IdUbicacion,
-            IdStaff = request.IdStaff
-        };
-
+        var dto = _mapper.Map<CampaniaDTO>(request);
         return _campaniaCommandService.CrearCampaniaAsync(dto);
     }
 }

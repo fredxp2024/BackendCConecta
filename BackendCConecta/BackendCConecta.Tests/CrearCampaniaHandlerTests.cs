@@ -1,7 +1,9 @@
+using AutoMapper;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Comandos;
 using BackendCConecta.Aplicacion.Modulos.Campanias.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Handlers;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.Campanias.Profiles;
 using Moq;
 using Xunit;
 
@@ -15,7 +17,10 @@ public class CrearCampaniaHandlerTests
         var service = new Mock<ICampaniaCommandService>();
         service.Setup(s => s.CrearCampaniaAsync(It.IsAny<CampaniaDTO>())).ReturnsAsync(1);
 
-        var handler = new CrearCampaniaHandler(service.Object);
+        var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CampaniaProfile>());
+        var mapper = mapperConfig.CreateMapper();
+
+        var handler = new CrearCampaniaHandler(service.Object, mapper);
         var command = new CrearCampaniaCommand
         {
             Titulo = "Prueba",

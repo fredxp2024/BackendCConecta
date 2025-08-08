@@ -1,5 +1,7 @@
+using AutoMapper;
 using BackendCConecta.Aplicacion.Modulos.Campanias.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Services;
+using BackendCConecta.Aplicacion.Modulos.Campanias.Profiles;
 using BackendCConecta.Dominio.Entidades.Campanias;
 using BackendCConecta.Infraestructura.Persistencia;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +41,9 @@ public class CampaniaServiceTests
         });
         await context.SaveChangesAsync();
 
-        var service = new CampaniaService(context);
+        var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<CampaniaProfile>());
+        var mapper = mapperConfig.CreateMapper();
+        var service = new CampaniaService(context, mapper);
 
         var result = await service.ObtenerCampaniasAsync();
 
