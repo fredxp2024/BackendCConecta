@@ -1,45 +1,56 @@
-﻿using Microsoft.EntityFrameworkCore;
+using BackendCConecta.Dominio.Entidades.Usuarios;
+using BackendCConecta.Dominio.Entidades.UsuariosDatos;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using BackendCConecta.Dominio.Entidades.UsuariosAll;
-using BackendCConecta.Dominio.Entidades.Usuario;
 
-namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Usuarios
+namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Usuarios;
+
+/// <summary>
+/// Configuración de EF Core para la entidad <see cref="Usuario"/>.
+/// </summary>
+public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
 {
-    public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
+    /// <inheritdoc />
+    public void Configure(EntityTypeBuilder<Usuario> builder)
     {
-        public void Configure(EntityTypeBuilder<Usuario> builder)
-        {
-            builder.ToTable("Usuarios");
+        builder.ToTable("Usuarios");
 
-            builder.HasKey(u => u.IdUsuario);
+        builder.HasKey(u => u.IdUsuario);
 
-            builder.Property(u => u.CorreoElectronico)
-                   .HasMaxLength(100)
-                   .IsRequired();
+        builder.Property(u => u.CorreoElectronico)
+               .IsRequired()
+               .HasMaxLength(100);
 
-            builder.Property(u => u.PasswordHash)
-                   .HasMaxLength(255)
-                   .IsRequired();
+        builder.Property(u => u.PasswordHash)
+               .IsRequired()
+               .HasMaxLength(255);
 
-            builder.Property(u => u.MetodoAutenticacion)
-                   .HasMaxLength(50)
-                   .IsRequired();
+        builder.Property(u => u.MetodoAutenticacion)
+               .IsRequired()
+               .HasConversion<string>()
+               .HasMaxLength(50);
 
-            builder.Property(u => u.TipoAcceso)
-                   .HasMaxLength(50)
-                   .IsRequired();
+        builder.Property(u => u.TipoAcceso)
+               .IsRequired()
+               .HasConversion<string>()
+               .HasMaxLength(50);
 
-            builder.Property(u => u.Estado)
-                   .HasMaxLength(20)
-                   .HasDefaultValue("activo");
+        builder.Property(u => u.Estado)
+               .HasConversion<string>()
+               .HasMaxLength(20)
+               .HasDefaultValue(EstadoUsuario.Activo);
 
-            builder.Property(u => u.FechaRegistro)
-                   .HasDefaultValueSql("GETDATE()");
+        builder.Property(u => u.Nombre)
+               .IsRequired()
+               .HasMaxLength(150);
 
-            builder.HasOne(u => u.DatosUsuario)
-                   .WithOne(d => d.Usuario)
-                   .HasForeignKey<DatosUsuario>(d => d.IdDatosUsuario)
-                   .OnDelete(DeleteBehavior.Cascade);
-        }
+        builder.Property(u => u.FechaRegistro)
+               .HasDefaultValueSql("GETDATE()");
+
+        builder.HasOne(u => u.DatosUsuario)
+               .WithOne(d => d.Usuario)
+               .HasForeignKey<DatosUsuario>(d => d.IdDatosUsuario)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }
+

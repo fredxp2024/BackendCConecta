@@ -2233,13 +2233,17 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
             entity.Property(e => e.CorreoElectronico)
+                .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("correo_electronico");
             entity.Property(e => e.Estado)
                 .HasMaxLength(20)
                 .IsUnicode(false)
-                .HasDefaultValue("activo")
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (EstadoUsuario)Enum.Parse(typeof(EstadoUsuario), v))
+                .HasDefaultValue(EstadoUsuario.Activo)
                 .HasColumnName("estado");
             entity.Property(e => e.FechaRegistro)
                 .HasDefaultValueSql("(getdate())")
@@ -2248,18 +2252,26 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.MetodoAutenticacion)
                 .HasMaxLength(50)
                 .IsUnicode(false)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (MetodoAutenticacion)Enum.Parse(typeof(MetodoAutenticacion), v))
                 .HasColumnName("metodo_autenticacion");
             entity.Property(e => e.Nombre)
+                .IsRequired()
                 .HasMaxLength(150)
                 .IsUnicode(false)
                 .HasColumnName("nombre");
             entity.Property(e => e.PasswordHash)
+                .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("password_hash");
             entity.Property(e => e.TipoAcceso)
                 .HasMaxLength(50)
                 .IsUnicode(false)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (TipoAcceso)Enum.Parse(typeof(TipoAcceso), v))
                 .HasColumnName("tipo_acceso");
         });
 

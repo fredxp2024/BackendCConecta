@@ -25,7 +25,7 @@ namespace BackendCConecta.Infraestructura.Servicios
             if (usuario == null)
                 throw new Exception("Usuario no encontrado.");
 
-            usuario.Estado = "activo";
+            usuario.Estado = EstadoUsuario.Activo;
             await _usuarioRepository.ActualizarAsync(usuario);
         }
         public async Task<Usuario?> ObtenerPorCorreoAsync(string correo)

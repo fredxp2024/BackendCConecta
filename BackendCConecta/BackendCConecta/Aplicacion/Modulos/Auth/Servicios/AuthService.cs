@@ -5,6 +5,7 @@ using BackendCConecta.Aplicacion.InterfacesGenerales;
 using BackendCConecta.Aplicacion.Modulos.Auth.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Auth.Interfaces;
 using BackendCConecta.Dominio.Repositorios;
+using BackendCConecta.Dominio.Entidades.Usuarios;
 using Microsoft.Extensions.Logging;
 
 namespace BackendCConecta.Aplicacion.Modulos.Auth.Servicios
@@ -43,7 +44,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Servicios
                 return Result<LoginResponseDto>.Failure("Credenciales incorrectas.");
             }
 
-            if (!string.Equals(usuario.Estado, "activo", StringComparison.OrdinalIgnoreCase))
+            if (usuario.Estado != EstadoUsuario.Activo)
             {
                 _logger.LogWarning("Login failed for {Correo}: usuario inactivo", request.Correo);
                 return Result<LoginResponseDto>.Failure("Usuario inactivo.");
@@ -62,7 +63,7 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Servicios
             {
                 IdUsuario = usuario.IdUsuario,
                 Correo = usuario.CorreoElectronico,
-                TipoAcceso = usuario.TipoAcceso,
+                TipoAcceso = usuario.TipoAcceso.ToString(),
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
