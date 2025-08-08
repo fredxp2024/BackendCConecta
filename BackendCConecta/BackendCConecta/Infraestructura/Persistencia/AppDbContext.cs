@@ -167,7 +167,7 @@ public partial class AppDbContext : DbContext
 
     // 🔐 Roles
     public virtual DbSet<Rol> Roles { get; set; }
-    public virtual DbSet<UsuariosRol> UsuariosRoles { get; set; }
+    public virtual DbSet<UsuarioRol> UsuariosRoles { get; set; }
 
     // 🧑‍🏫 Staff
     public virtual DbSet<AccionesAdministrador> AccionesAdministradores { get; set; }
@@ -181,7 +181,7 @@ public partial class AppDbContext : DbContext
 
     // 🌍 Ubicación del sistema
     public virtual DbSet<LugaresReferencia> LugaresReferencias { get; set; }
-    public virtual DbSet<UbicacionesSistema> UbicacionesSistemas { get; set; }
+    public virtual DbSet<UbicacionSistema> UbicacionesSistema { get; set; }
 
     // 👤 Usuarios
     public virtual DbSet<Usuario> Usuarios { get; set; }
@@ -1218,7 +1218,7 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValue(true)
                 .HasColumnName("visible_en_portal");
 
-            entity.HasOne(d => d.IdUbicacionNavigation).WithMany(p => p.LugaresReferencia)
+            entity.HasOne(d => d.Ubicacion).WithMany(p => p.LugaresReferencia)
                 .HasForeignKey(d => d.IdUbicacion)
                 .HasConstraintName("FK__LugaresRe__id_ub__398D8EEE");
         });
@@ -1676,14 +1676,14 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.IdUbicacion)
                 .HasConstraintName("FK__Publicaci__id_ub__6501FCD8");
 
-            entity.HasMany(d => d.IdLugars).WithMany(p => p.IdPublicacions)
+            entity.HasMany(d => d.Lugares).WithMany(p => p.Publicaciones)
                 .UsingEntity<Dictionary<string, object>>(
                     "PublicacionesLugaresReferencium",
                     r => r.HasOne<LugaresReferencia>().WithMany()
                         .HasForeignKey("IdLugar")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK__Publicaci__id_lu__7BB05806"),
-                    l => l.HasOne<Publicacione>().WithMany()
+                    l => l.HasOne<Publicacion>().WithMany()
                         .HasForeignKey("IdPublicacion")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK__Publicaci__id_pu__7ABC33CD"),
@@ -2191,7 +2191,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK__Transacci__id_pu__0A338187");
         });
 
-        modelBuilder.Entity<UbicacionesSistema>(entity =>
+        modelBuilder.Entity<UbicacionSistema>(entity =>
         {
             entity.HasKey(e => e.IdUbicacion).HasName("PK__Ubicacio__81BAA591560426B8");
 
@@ -2275,7 +2275,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("tipo_acceso");
         });
 
-        modelBuilder.Entity<UsuariosRol>(entity =>
+        modelBuilder.Entity<UsuarioRol>(entity =>
         {
             entity.HasKey(e => e.IdUsuarioRol).HasName("PK__Usuarios__D1F881FE45C97446");
 

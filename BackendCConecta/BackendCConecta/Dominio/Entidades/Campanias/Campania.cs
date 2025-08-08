@@ -35,7 +35,7 @@ public partial class Campania
 
     public virtual StaffAdministrativo IdStaffNavigation { get; set; } = null!;
 
-    public virtual UbicacionesSistema? IdUbicacionNavigation { get; set; }
+    public virtual UbicacionSistema? IdUbicacionNavigation { get; set; }
 
     public virtual ICollection<MetaGlobalRespaldo> MetaGlobalRespaldos { get; set; } = new List<MetaGlobalRespaldo>();
 

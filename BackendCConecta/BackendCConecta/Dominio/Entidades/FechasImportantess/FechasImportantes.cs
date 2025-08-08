@@ -32,5 +32,5 @@ public partial class FechasImportantes
 
     public virtual TiposFechaImportantes IdTipoFechaNavigation { get; set; } = null!;
 
-    public virtual UbicacionesSistema IdUbicacionNavigation { get; set; } = null!;
+    public virtual UbicacionSistema IdUbicacionNavigation { get; set; } = null!;
 }

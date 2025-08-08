@@ -44,19 +44,19 @@ using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.DTOs;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Validadores;
 
 // ?? DatosPersona
-using BackendCConecta.Aplicacion.Modulos.DatosPersona.Interfaces;
-using BackendCConecta.Aplicacion.Modulos.DatosPersona.DTOs;
-using BackendCConecta.Aplicacion.Modulos.DatosPersona.Validadores;
-using BackendCConecta.Infraestructura.Servicios.DatosPersona;
+using BackendCConecta.Aplicacion.Modulos.DatosPersonas.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.DatosPersonas.DTOs;
+using BackendCConecta.Aplicacion.Modulos.DatosPersonas.Validadores;
+using BackendCConecta.Infraestructura.Servicios.DatosPersonas;
 using BackendCConecta.Infraestructura.Servicios.DatosUsuarios;
 
 using BackendCConecta.Infraestructura.Repositorios.DatosUsuarios;
-using BackendCConecta.Infraestructura.Repositorios.DatosPersona;
-using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Interfaces;
-using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.DTOs;
-using BackendCConecta.Aplicacion.Modulos.DatosEmpresa.Validadores;
-using BackendCConecta.Infraestructura.Repositorios.DatosEmpresa;
-using BackendCConecta.Infraestructura.Servicios.DatosEmpresa;
+using BackendCConecta.Infraestructura.Repositorios.DatosPersonas;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.DTOs;
+using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Validadores;
+using BackendCConecta.Infraestructura.Repositorios.DatosEmpresas;
+using BackendCConecta.Infraestructura.Servicios.DatosEmpresas;
 using BackendCConecta.Api.Middlewares;
 using BackendCConecta.Api.Seguridad;
 

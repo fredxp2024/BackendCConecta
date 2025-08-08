@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using BackendCConecta.Aplicacion.Modulos.UbicacionSistema.DTOs;
+using BackendCConecta.Dominio.Entidades.UbicacionSistema;
 
 namespace BackendCConecta.Dominio.Repositorios
 {

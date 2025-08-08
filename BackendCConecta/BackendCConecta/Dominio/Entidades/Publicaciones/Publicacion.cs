@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using BackendCConecta.Dominio.Entidades.Paquetes;
 using BackendCConecta.Dominio.Entidades.Avisos;
 using BackendCConecta.Dominio.Entidades.Eventos;
-using BackendCConecta.Dominio.Entidades.negocios;
+using BackendCConecta.Dominio.Entidades.Negocios;
 using BackendCConecta.Dominio.Entidades.Representantes;
 using BackendCConecta.Dominio.Entidades.Historiales;
 using BackendCConecta.Dominio.Entidades.UsuariosDatos;
@@ -55,7 +55,7 @@ public partial class Publicacion
 
     public virtual TiposPublicacion IdTipoNavigation { get; set; } = null!;
 
-    public virtual UbicacionesSistema? IdUbicacionNavigation { get; set; }
+    public virtual UbicacionSistema? IdUbicacionNavigation { get; set; }
 
     public virtual ICollection<InteresesPublicacion> InteresesPublicacions { get; set; } = new List<InteresesPublicacion>();
 
@@ -81,5 +81,5 @@ public partial class Publicacion
 
     public virtual ICollection<WhatsappsPublicacion> WhatsappsPublicacions { get; set; } = new List<WhatsappsPublicacion>();
 
-    public virtual ICollection<LugaresReferencia> IdLugars { get; set; } = new List<LugaresReferencia>();
+    public virtual ICollection<LugaresReferencia> Lugares { get; set; } = new List<LugaresReferencia>();
 }

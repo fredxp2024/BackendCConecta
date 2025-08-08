@@ -18,7 +18,7 @@ public partial class LugaresReferencia
 
     public bool? VisibleEnPortal { get; set; }
 
-    public virtual UbicacionesSistema? IdUbicacionNavigation { get; set; }
+    public virtual UbicacionSistema? Ubicacion { get; set; }
 
-    public virtual ICollection<Publicacion> IdPublicacions { get; set; } = new List<Publicacion>();
+    public virtual ICollection<Publicacion> Publicaciones { get; set; } = new List<Publicacion>();
 }
