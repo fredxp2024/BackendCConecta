@@ -2,6 +2,7 @@
 using System.Text;
 using System.Security.Claims;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -145,10 +146,13 @@ builder.Services.AddScoped<IFechasImportantesService, FechasImportantesService>(
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 // 🗂️ FluentValidation
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+builder.Services
+    .AddControllers()
+    .AddFluentValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 // 🧠 MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // ---------------------------------------------
@@ -164,7 +168,6 @@ builder.Services.AddAuthorization(options =>
 // ---------------------------------------------
 // 🚀 Otros servicios esenciales
 // ---------------------------------------------
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
