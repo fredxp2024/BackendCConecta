@@ -1,6 +1,8 @@
-﻿namespace BackendCConecta.Aplicacion.Modulos.Acuerdos.Comandos
+using MediatR;
+
+namespace BackendCConecta.Aplicacion.Modulos.Acuerdos.Comandos;
+
+public class EliminarAcuerdoComercialCommand : IRequest<bool>
 {
-    public class EliminarAcuerdoComercialCommand
-    {
-    }
+    public int Id { get; set; }
 }
