@@ -9,7 +9,18 @@ namespace BackendCConecta.Aplicacion.Modulos.UbicacionSistema.DTOs
         public string? Nivel2Provincia { get; set; }
         public string? Nivel3Distrito { get; set; }
         public string? Referencia { get; set; }
-        public decimal? Latitud { get; set; }
-        public decimal? Longitud { get; set; }
+        private decimal? latitud;
+        public decimal? Latitud
+        {
+            get => latitud;
+            set => latitud = value.HasValue ? decimal.Round(value.Value, 6) : value;
+        }
+
+        private decimal? longitud;
+        public decimal? Longitud
+        {
+            get => longitud;
+            set => longitud = value.HasValue ? decimal.Round(value.Value, 6) : value;
+        }
     }
 }
