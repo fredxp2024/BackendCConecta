@@ -1,3 +1,4 @@
+using AutoMapper;
 using BackendCConecta.Aplicacion.Modulos.Campanias.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Campanias.Interfaces;
 using BackendCConecta.Dominio.Entidades.Campanias;
@@ -12,27 +13,19 @@ namespace BackendCConecta.Aplicacion.Modulos.Campanias.Services;
 public class CampaniaService : ICampaniaCommandService, ICampaniaQueryService
 {
     private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
 
-    public CampaniaService(AppDbContext context)
+    public CampaniaService(AppDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     /// <inheritdoc />
     public async Task<int> CrearCampaniaAsync(CampaniaDTO campania)
     {
-        var entity = new Campania
-        {
-            Titulo = campania.Titulo,
-            Descripcion = campania.Descripcion,
-            TipoCampania = campania.TipoCampania,
-            FechaInicio = campania.FechaInicio,
-            FechaFin = campania.FechaFin,
-            Estado = campania.Estado,
-            IdUbicacion = campania.IdUbicacion,
-            IdStaff = campania.IdStaff,
-            FechaRegistro = DateTime.UtcNow
-        };
+        var entity = _mapper.Map<Campania>(campania);
+        entity.FechaRegistro = DateTime.UtcNow;
 
         _context.Campanias.Add(entity);
         await _context.SaveChangesAsync();
@@ -43,20 +36,8 @@ public class CampaniaService : ICampaniaCommandService, ICampaniaQueryService
     /// <inheritdoc />
     public async Task<IReadOnlyList<CampaniaDTO>> ObtenerCampaniasAsync()
     {
-        return await _context.Campanias
-            .Select(c => new CampaniaDTO
-            {
-                IdCampania = c.IdCampania,
-                Titulo = c.Titulo,
-                Descripcion = c.Descripcion,
-                TipoCampania = c.TipoCampania,
-                FechaInicio = c.FechaInicio,
-                FechaFin = c.FechaFin,
-                Estado = c.Estado,
-                IdUbicacion = c.IdUbicacion,
-                IdStaff = c.IdStaff
-            })
-            .ToListAsync();
+        var entities = await _context.Campanias.ToListAsync();
+        return _mapper.Map<List<CampaniaDTO>>(entities);
     }
 }
 

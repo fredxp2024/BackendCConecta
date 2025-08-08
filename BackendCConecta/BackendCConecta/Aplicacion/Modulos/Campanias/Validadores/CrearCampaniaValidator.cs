@@ -7,6 +7,21 @@ public class CrearCampaniaValidator : AbstractValidator<CrearCampaniaCommand>
 {
     public CrearCampaniaValidator()
     {
-        // No rules defined yet.
+        RuleFor(x => x.Titulo)
+            .NotEmpty();
+
+        RuleFor(x => x.TipoCampania)
+            .NotEmpty();
+
+        RuleFor(x => x.FechaInicio)
+            .NotEmpty()
+            .LessThan(x => x.FechaFin);
+
+        RuleFor(x => x.FechaFin)
+            .NotEmpty()
+            .GreaterThan(x => x.FechaInicio);
+
+        RuleFor(x => x.IdStaff)
+            .GreaterThan(0);
     }
 }
