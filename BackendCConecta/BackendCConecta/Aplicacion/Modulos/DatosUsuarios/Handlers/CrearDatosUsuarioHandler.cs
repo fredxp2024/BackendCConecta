@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Comandos;
+using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using BackendCConecta.Dominio.Entidades.Usuarios;
-using BackendCConecta.Infraestructura.Persistencia;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,11 +11,11 @@ namespace BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Handlers
  
     public class CrearDatosUsuarioHandler : IRequestHandler<CrearDatosUsuarioCommand, int>
     {
-        private readonly AppDbContext _context;
+        private readonly IDatosUsuarioRepository _repository;
 
-        public CrearDatosUsuarioHandler(AppDbContext context)
+        public CrearDatosUsuarioHandler(IDatosUsuarioRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<int> Handle(CrearDatosUsuarioCommand request, CancellationToken cancellationToken)
@@ -31,9 +32,7 @@ namespace BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Handlers
                 FechaRegistro = DateTime.UtcNow
             };
 
-            _context.DatosUsuarios.Add(datos);
-            await _context.SaveChangesAsync(cancellationToken);
-
+            await _repository.CrearAsync(datos, cancellationToken);
             return datos.IdDatosUsuario;
         }
     }
