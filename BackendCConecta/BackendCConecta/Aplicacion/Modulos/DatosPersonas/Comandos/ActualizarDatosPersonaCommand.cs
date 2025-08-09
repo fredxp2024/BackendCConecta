@@ -1,9 +1,9 @@
-﻿using MediatR;
+using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosPersonas.DTOs;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosPersonas.Comandos;
 
-public class ActualizarDatosPersonaCommand : IRequest
+public class ActualizarDatosPersonaCommand : IRequest<Unit>
 {
     public int IdDatosUsuario { get; set; }
     public ActualizarDatosPersonaDto Datos { get; set; }

@@ -1,6 +1,8 @@
+using MediatR;
+
 namespace BackendCConecta.Aplicacion.Modulos.Campanias.Comandos;
 
-public class RegistrarParticipanteCommand
+public class RegistrarParticipanteCommand : IRequest<Unit>
 {
 }
 

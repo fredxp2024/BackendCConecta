@@ -5,7 +5,7 @@ using BackendCConecta.Dominio.Entidades.Empresas;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Handlers;
 
-public class ActualizarDatosEmpresaHandler : IRequestHandler<ActualizarDatosEmpresaCommand>
+public class ActualizarDatosEmpresaHandler : IRequestHandler<ActualizarDatosEmpresaCommand, Unit>
 {
     private readonly IDatosEmpresaRepository _repository;
 

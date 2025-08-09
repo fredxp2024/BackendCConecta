@@ -1,11 +1,11 @@
-﻿using MediatR;
+using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosPersonas.Comandos;
 using BackendCConecta.Aplicacion.Modulos.DatosPersonas.Interfaces;
 using BackendCConecta.Dominio.Entidades.Personas;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosPersonas.Handlers;
 
-public class ActualizarDatosPersonaHandler : IRequestHandler<ActualizarDatosPersonaCommand>
+public class ActualizarDatosPersonaHandler : IRequestHandler<ActualizarDatosPersonaCommand, Unit>
 {
     private readonly IDatosPersonaRepository _repository;
 
