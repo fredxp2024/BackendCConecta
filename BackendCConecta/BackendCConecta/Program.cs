@@ -69,8 +69,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblies(
-        typeof(BackendCConecta.Aplicacion.AssemblyMarker).Assembly,
-        typeof(Program).Assembly
+        Assembly.GetExecutingAssembly(),
+        typeof(BackendCConecta.Aplicacion.AssemblyMarker).Assembly
     );
 });
 
@@ -86,6 +86,9 @@ builder.Services.AddValidatorsFromAssemblies(new[]
 builder.Services.AddAutoMapper(
     typeof(BackendCConecta.Aplicacion.AssemblyMarker).Assembly
 );
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();

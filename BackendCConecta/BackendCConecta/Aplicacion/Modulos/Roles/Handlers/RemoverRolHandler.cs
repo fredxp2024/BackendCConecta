@@ -14,17 +14,17 @@ namespace BackendCConecta.Aplicacion.Modulos.Roles.Handlers
     public class RemoverRolHandler : IRequestHandler<RemoverRolCommand, bool>
     {
         private readonly IRolCommandService _rolCommandService;
-        private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentUserService _currentUser;
 
-        public RemoverRolHandler(IRolCommandService rolCommandService, ICurrentUserService currentUserService)
+        public RemoverRolHandler(IRolCommandService rolCommandService, ICurrentUserService currentUser)
         {
             _rolCommandService = rolCommandService;
-            _currentUserService = currentUserService;
+            _currentUser = currentUser;
         }
 
         public async Task<bool> Handle(RemoverRolCommand request, CancellationToken cancellationToken)
         {
-            if (!_currentUserService.HasRole("administrador"))
+            if (!_currentUser.IsInRole("administrador"))
             {
                 throw new UnauthorizedAccessException("Usuario sin permisos para modificar roles.");
             }
