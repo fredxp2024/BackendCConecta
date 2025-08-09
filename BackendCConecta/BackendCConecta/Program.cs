@@ -7,6 +7,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 using BackendCConecta.Api.Middlewares;
 using BackendCConecta.Aplicacion.Comportamientos;
 using BackendCConecta.Aplicacion.InterfacesGenerales;
@@ -121,7 +125,19 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+    options.ExampleFilters();
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "API BackendCConecta",
+        Version = "v1",
+        Description = "Documentación de la API con ASP.NET 8 y Swagger optimizado"
+    });
+});
+
+builder.Services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 
 builder.Services.AddCors(options =>
 {
@@ -134,7 +150,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+        options.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
