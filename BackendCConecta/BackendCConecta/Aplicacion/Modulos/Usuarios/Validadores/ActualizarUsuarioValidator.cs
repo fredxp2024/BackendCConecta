@@ -13,11 +13,13 @@ namespace BackendCConecta.Aplicacion.Modulos.Usuarios.Validadores
 
             RuleFor(x => x.CorreoElectronico)
                 .NotEmpty().WithMessage("El correo es obligatorio.")
-                .Must(ReglasUsuario.EsCorreoValido).WithMessage("El correo no es válido.");
+                .Must(c => !string.IsNullOrWhiteSpace(c) && ReglasUsuario.EsCorreoValido(c!))
+                .WithMessage("El correo no es válido.");
 
             RuleFor(x => x.TipoAcceso)
                 .NotEmpty().WithMessage("El tipo de acceso es obligatorio.")
-                .Must(ReglasUsuario.EsTipoAccesoValido).WithMessage("Tipo de acceso no válido.");
+                .Must(t => !string.IsNullOrWhiteSpace(t) && ReglasUsuario.EsTipoAccesoValido(t!))
+                .WithMessage("Tipo de acceso no válido.");
         }
     }
 }

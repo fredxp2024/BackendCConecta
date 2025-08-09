@@ -16,17 +16,11 @@ namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
 
         public async Task<Unit> Handle(EliminarUbicacionSistemaCommand request, CancellationToken cancellationToken)
         {
-            var entidad = await _repository.ObtenerPorIdAsync(request.IdUbicacion);
-            ValidarExistencia(entidad, request.IdUbicacion);
+            var entidad = await _repository.ObtenerPorIdAsync(request.IdUbicacion)
+                ?? throw new KeyNotFoundException($"No se encontró la ubicación con ID {request.IdUbicacion}.");
 
             await _repository.EliminarAsync(entidad);
             return Unit.Value;
-        }
-
-        private static void ValidarExistencia(UbicacionSistema? entidad, int id)
-        {
-            if (entidad == null)
-                throw new KeyNotFoundException($"No se encontró la ubicación con ID {id}.");
         }
     }
 }

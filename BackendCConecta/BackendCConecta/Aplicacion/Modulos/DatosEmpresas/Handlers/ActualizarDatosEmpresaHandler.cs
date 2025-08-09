@@ -16,8 +16,8 @@ public class ActualizarDatosEmpresaHandler : IRequestHandler<ActualizarDatosEmpr
 
     public async Task<Unit> Handle(ActualizarDatosEmpresaCommand request, CancellationToken cancellationToken)
     {
-        var empresa = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario);
-        ValidarExistencia(empresa);
+        var empresa = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario)
+            ?? throw new KeyNotFoundException("DatosEmpresa no encontrada.");
 
         empresa.RazonSocial = request.Datos.RazonSocial;
         empresa.Ruc = request.Datos.Ruc;
@@ -25,11 +25,5 @@ public class ActualizarDatosEmpresaHandler : IRequestHandler<ActualizarDatosEmpr
 
         await _repository.ActualizarAsync(empresa);
         return Unit.Value;
-    }
-
-    private static void ValidarExistencia(DatosEmpresa? empresa)
-    {
-        if (empresa == null)
-            throw new KeyNotFoundException("DatosEmpresa no encontrada.");
     }
 }

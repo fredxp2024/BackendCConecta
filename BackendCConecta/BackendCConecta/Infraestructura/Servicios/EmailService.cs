@@ -22,9 +22,14 @@ public class EmailService : IEmailService
         var smtpUsuario = _config["EmailSettings:Usuario"];
         var smtpClave = _config["EmailSettings:Clave"];
 
+        if (string.IsNullOrWhiteSpace(remitente))
+            throw new InvalidOperationException("Remitente no configurado");
+        if (string.IsNullOrWhiteSpace(destinatario))
+            throw new ArgumentException("destinatario requerido", nameof(destinatario));
+
         using var mensaje = new MailMessage();
         mensaje.From = new MailAddress(remitente);
-        mensaje.To.Add(destinatario);
+        mensaje.To.Add(new MailAddress(destinatario));
         mensaje.Subject = asunto;
         mensaje.Body = mensajeHtml;
         mensaje.IsBodyHtml = true;

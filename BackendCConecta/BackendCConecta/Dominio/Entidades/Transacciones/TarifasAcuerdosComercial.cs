@@ -30,7 +30,7 @@ public partial class TarifasAcuerdosComercial
 
     public DateTime? FechaRegistro { get; set; }
 
-    public virtual ICollection<AcuerdosComercial> AcuerdosComerciales { get; set; } = new List<AcuerdosComerciale>();
+    public virtual ICollection<AcuerdosComercial> AcuerdosComerciales { get; set; } = new List<AcuerdosComercial>();
 
     public virtual StaffAdministrativo IdStaffNavigation { get; set; } = null!;
 

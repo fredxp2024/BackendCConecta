@@ -48,8 +48,8 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
                .HasDefaultValueSql("GETDATE()");
 
         builder.HasOne(u => u.DatosUsuario)
-               .WithOne(d => d.Usuario)
-               .HasForeignKey<DatosUsuario>(d => d.IdDatosUsuario)
+               .WithOne(d => d.IdUsuarioNavigation)
+               .HasForeignKey<DatosUsuario>(d => d.IdUsuario)
                .OnDelete(DeleteBehavior.Cascade);
     }
 }

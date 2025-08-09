@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -46,17 +47,14 @@ namespace BackendCConecta.Infraestructura.Servicios.Usuarios
                 .SingleOrDefaultAsync(cancellationToken);
         }
 
-        private static UsuarioDto MapearUsuarioDto(Usuario u)
+        private static readonly Expression<Func<Usuario, UsuarioDto>> MapearUsuarioDto = u => new UsuarioDto
         {
-            return new UsuarioDto
-            {
-                IdUsuario = u.IdUsuario,
-                CorreoElectronico = u.CorreoElectronico,
-                MetodoAutenticacion = u.MetodoAutenticacion.ToString(),
-                TipoAcceso = u.TipoAcceso.ToString(),
-                Estado = u.Estado.ToString(),
-                FechaRegistro = u.FechaRegistro
-            };
-        }
+            IdUsuario = u.IdUsuario,
+            CorreoElectronico = u.CorreoElectronico,
+            MetodoAutenticacion = u.MetodoAutenticacion.ToString(),
+            TipoAcceso = u.TipoAcceso.ToString(),
+            Estado = u.Estado.ToString(),
+            FechaRegistro = u.FechaRegistro
+        };
     }
 }

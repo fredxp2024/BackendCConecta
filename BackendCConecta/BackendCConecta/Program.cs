@@ -94,7 +94,8 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    var jwtSettings = config.GetSection("Jwt").Get<JwtSettings>();
+    var jwtSettings = config.GetSection("Jwt").Get<JwtSettings>()
+        ?? throw new InvalidOperationException("Jwt configuration missing");
     options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
@@ -148,8 +149,9 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBe
 // 🗂️ FluentValidation
 builder.Services
     .AddControllers()
-    .AddFluentValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 // 🧠 MediatR
 builder.Services.AddMediatR(cfg =>
