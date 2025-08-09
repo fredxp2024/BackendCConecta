@@ -1,6 +1,6 @@
-﻿namespace BackendCConecta.Aplicacion.Modulos.Campañas.Comandos
+namespace BackendCConecta.Aplicacion.Modulos.Campanias.Comandos;
+
+public class RegistrarParticipanteCommand
 {
-    public class RegistrarParticipanteCommand
-    {
-    }
 }
+

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using BackendCConecta.Dominio.Entidades.Publicaciones;
-
-namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Publicaciones
+using BackendCConecta.Dominio.Entidades.Avisos;
+ 
+namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Publicaciones
 {
     public class AvisoConfiguration : IEntityTypeConfiguration<Aviso>
     {

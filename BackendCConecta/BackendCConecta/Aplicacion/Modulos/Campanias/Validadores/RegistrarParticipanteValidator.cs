@@ -7,6 +7,5 @@ public class RegistrarParticipanteValidator : AbstractValidator<RegistrarPartici
 {
     public RegistrarParticipanteValidator()
     {
-        // No rules defined yet.
     }
 }

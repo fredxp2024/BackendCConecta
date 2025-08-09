@@ -1,6 +1,6 @@
-﻿namespace BackendCConecta.Aplicacion.Modulos.Campañas.Consultas
+namespace BackendCConecta.Aplicacion.Modulos.Campanias.Consultas;
+
+public class ObtenerParticipantesQuery
 {
-    public class ObtenerParticipantesQuery
-    {
-    }
 }
+
