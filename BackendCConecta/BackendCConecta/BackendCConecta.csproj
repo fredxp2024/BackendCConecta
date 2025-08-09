@@ -14,9 +14,22 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <!-- Evita crear apphost .exe en Debug; ejecuta via dll y reduce bloqueos -->
+    <!-- Opcional: evita generar EXE en Debug; correrá como DLL (dotnet BackendCConecta.dll) -->
     <UseAppHost>false</UseAppHost>
   </PropertyGroup>
+
+  <Target Name="KillLockedBackend" BeforeTargets="Build">
+    <!-- Intenta cerrar cualquier instancia previa que bloquee la compilación -->
+    <Exec Command="taskkill /F /IM BackendCConecta.exe" IgnoreExitCode="true" />
+    <!-- Si estaba corriendo con dotnet, también intenta cerrar el dotnet host antiguas -->
+    <Exec Command="taskkill /F /IM dotnet.exe" IgnoreExitCode="true" />
+  </Target>
+
+  <Target Name="PreCleanIfNeeded" BeforeTargets="CoreCompile">
+    <!-- Elimina restos de compilaciones anteriores si siguen bloqueados -->
+    <RemoveDir Directories='$(MSBuildProjectDirectory)\bin\Debug\net8.0' />
+    <RemoveDir Directories='$(MSBuildProjectDirectory)\obj\Debug\net8.0' />
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
@@ -42,22 +55,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
   </ItemGroup>
-
-  <!-- Apagar servidores de build del SDK antes de compilar (libera locks) -->
-  <Target Name="ShutdownDotnetBuildServer" BeforeTargets="Build">
-    <Exec Command="dotnet build-server shutdown" ContinueOnError="true" />
-  </Target>
-
-  <Target Name="KillLockedExeOnDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug' AND '$(OS)' == 'Windows_NT'">
-    <!-- Intenta cerrar cualquier proceso previo; no fallar si no existe -->
-    <Exec Command="taskkill /F /IM BackendCConecta.exe /T" IgnoreExitCode="true" />
-    <!-- Cerrar también dotnet que tenga la dll cargada (escenario dotnet run / watch) -->
-    <Exec Command="for /f &quot;tokens=2&quot; %&#37;i in ('tasklist ^| findstr /I &quot;dotnet.exe&quot;') do (echo Revisando PID %&#37;i)" IgnoreExitCode="true" />
-  </Target>
-
-  <Target Name="PostBuildCleanupExe" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug' AND Exists('$(OutputPath)BackendCConecta.exe')">
-    <Message Text="Eliminando BackendCConecta.exe residual en Debug..." Importance="high" />
-    <Delete Files="$(OutputPath)BackendCConecta.exe" ContinueOnError="true" />
-  </Target>
-
 </Project>
