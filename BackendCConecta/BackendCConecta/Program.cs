@@ -109,6 +109,7 @@ builder.Services
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
@@ -134,6 +135,27 @@ builder.Services.AddSwaggerGen(options =>
         Title = "API BackendCConecta",
         Version = "v1",
         Description = "Documentación de la API con ASP.NET 8 y Swagger optimizado"
+    });
+
+    var jwtScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Esquema JWT usando Bearer. Ejemplo: **Bearer {tu_token_jwt}**",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    };
+
+    options.AddSecurityDefinition("Bearer", jwtScheme);
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtScheme, Array.Empty<string>() }
     });
 });
 
