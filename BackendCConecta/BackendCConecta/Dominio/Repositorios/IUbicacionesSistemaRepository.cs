@@ -1,13 +1,14 @@
-﻿using BackendCConecta.Dominio.Entidades.Ubicaciones;
+using System.Threading;
+using System.Threading.Tasks;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 
-namespace BackendCConecta.Dominio.Repositorios
+namespace BackendCConecta.Dominio.Repositorios;
+
+public interface IUbicacionesSistemaRepository
 {
-    public interface IUbicacionesSistemaRepository
-    {
-        Task<UbicacionSistema?> ObtenerPorIdAsync(int id);
-        Task<IEnumerable<UbicacionSistema>> ListarAsync();
-        Task InsertarAsync(UbicacionSistema entidad);
-        Task ActualizarAsync(UbicacionSistema entidad);
-        Task EliminarAsync(UbicacionSistema entidad);
-    }
+    Task<UbicacionSistema?> ObtenerPorIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<IEnumerable<UbicacionSistema>> ListarAsync(CancellationToken cancellationToken = default);
+    Task InsertarAsync(UbicacionSistema entidad, CancellationToken cancellationToken = default);
+    Task ActualizarAsync(UbicacionSistema entidad, CancellationToken cancellationToken = default);
+    Task EliminarAsync(UbicacionSistema entidad, CancellationToken cancellationToken = default);
 }
