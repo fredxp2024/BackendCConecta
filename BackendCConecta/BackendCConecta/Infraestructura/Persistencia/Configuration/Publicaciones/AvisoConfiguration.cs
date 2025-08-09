@@ -10,7 +10,7 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Publicacion
         {
             builder.ToTable("Avisos");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.IdAviso);
 
             builder.Property(x => x.TipoAviso).HasMaxLength(50);
             builder.Property(x => x.Modalidad).HasMaxLength(50);
@@ -20,8 +20,8 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Publicacion
             builder.Property(x => x.FechaDisponible);
             builder.Property(x => x.FechaRegistro).HasDefaultValueSql("GETDATE()");
 
-            builder.HasOne(x => x.Publicacion)
-                   .WithOne()
+            builder.HasOne(x => x.IdPublicacionNavigation)
+                   .WithOne(p => p.Aviso)
                    .HasForeignKey<Aviso>(x => x.IdPublicacion)
                    .OnDelete(DeleteBehavior.Restrict);
         }
