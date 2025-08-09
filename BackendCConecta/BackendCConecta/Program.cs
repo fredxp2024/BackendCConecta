@@ -24,6 +24,8 @@ using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.FechasImportantes.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.FechasImportantes.Services;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.Staff.Interfaces;
+using BackendCConecta.Aplicacion.Modulos.Staff.Servicios;
 using BackendCConecta.Dominio.Entidades.Usuarios;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Persistencia;
@@ -42,6 +44,12 @@ using BackendCConecta.Infraestructura.Servicios.Usuarios;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseDefaultServiceProvider(o =>
+{
+    o.ValidateOnBuild = true;
+    o.ValidateScopes = true;
+});
 
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -97,6 +105,7 @@ builder.Services.AddScoped<IUbicacionesSistemaRepository, UbicacionSistemaReposi
 builder.Services.AddScoped<ICampaniaCommandService, CampaniaService>();
 builder.Services.AddScoped<ICampaniaQueryService, CampaniaService>();
 builder.Services.AddScoped<IFechasImportantesService, FechasImportantesService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
