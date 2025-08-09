@@ -14,17 +14,17 @@ namespace BackendCConecta.Aplicacion.Modulos.Roles.Handlers
     public class AsignarRolHandler : IRequestHandler<AsignarRolCommand, bool>
     {
         private readonly IRolCommandService _rolCommandService;
-        private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentUserService _currentUser;
 
-        public AsignarRolHandler(IRolCommandService rolCommandService, ICurrentUserService currentUserService)
+        public AsignarRolHandler(IRolCommandService rolCommandService, ICurrentUserService currentUser)
         {
             _rolCommandService = rolCommandService;
-            _currentUserService = currentUserService;
+            _currentUser = currentUser;
         }
 
         public async Task<bool> Handle(AsignarRolCommand request, CancellationToken cancellationToken)
         {
-            if (!_currentUserService.HasRole("administrador"))
+            if (!_currentUser.IsInRole("administrador"))
             {
                 throw new UnauthorizedAccessException("Usuario sin permisos para asignar roles.");
             }

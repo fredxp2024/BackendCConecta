@@ -48,13 +48,8 @@
     <Exec Command="dotnet build-server shutdown" ContinueOnError="true" />
   </Target>
 
-  <!-- Matar instancia previa de la app (solo Windows) antes del Build -->
-  <Target Name="KillRunningBackendCConecta" BeforeTargets="Build" Condition="'$(OS)'=='Windows_NT'">
-    <!-- Intenta terminar el proceso por nombre; ignora error si no existe -->
-    <Exec Command="taskkill /F /IM BackendCConecta.exe /T" ContinueOnError="true" />
-    <!-- Como último recurso, intenta también matar dotnet.exe si mantiene el lock (comentado por defecto):
-    <Exec Command="taskkill /F /IM dotnet.exe /T" ContinueOnError="true" />
-    -->
+  <Target Name="KillLockedExeOnDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug' AND '$(OS)' == 'Windows_NT'">
+    <Exec Command="taskkill /F /IM BackendCConecta.exe" IgnoreExitCode="true" />
   </Target>
 
 </Project>
