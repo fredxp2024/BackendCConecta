@@ -1,21 +1,21 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BackendCConecta.Aplicacion.InterfacesGenerales;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.Comandos;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.Interfaces;
 using BackendCConecta.Dominio.Entidades.Usuarios;
 using BackendCConecta.Dominio.Repositorios;
+using Microsoft.AspNetCore.Identity;
 
 namespace BackendCConecta.Infraestructura.Servicios.Usuarios;
 
 public class UsuarioCommandService : IUsuarioCommandService
 {
     private readonly IUsuarioRepository _repository;
-    private readonly IPasswordHasher _passwordHasher;
+    private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-    public UsuarioCommandService(IUsuarioRepository repository, IPasswordHasher passwordHasher)
+    public UsuarioCommandService(IUsuarioRepository repository, IPasswordHasher<Usuario> passwordHasher)
     {
         _repository = repository;
         _passwordHasher = passwordHasher;
@@ -27,12 +27,13 @@ public class UsuarioCommandService : IUsuarioCommandService
         {
             Nombre = request.CorreoElectronico,
             CorreoElectronico = request.CorreoElectronico,
-            PasswordHash = _passwordHasher.HashPassword(request.Password),
             MetodoAutenticacion = Enum.Parse<MetodoAutenticacion>(request.MetodoAutenticacion, true),
             TipoAcceso = Enum.Parse<TipoAcceso>(request.TipoAcceso, true),
             FechaRegistro = request.FechaRegistro,
             Estado = Enum.Parse<EstadoUsuario>(request.Estado ?? EstadoUsuario.Activo.ToString(), true)
         };
+
+        entidad.PasswordHash = _passwordHasher.HashPassword(entidad, request.Password);
 
         await _repository.InsertarAsync(entidad);
         return MapToDto(entidad);
@@ -46,7 +47,7 @@ public class UsuarioCommandService : IUsuarioCommandService
         if (!string.IsNullOrEmpty(request.CorreoElectronico))
             entidad.CorreoElectronico = request.CorreoElectronico;
         if (!string.IsNullOrEmpty(request.Password))
-            entidad.PasswordHash = _passwordHasher.HashPassword(request.Password);
+            entidad.PasswordHash = _passwordHasher.HashPassword(entidad, request.Password);
         if (!string.IsNullOrEmpty(request.MetodoAutenticacion))
             entidad.MetodoAutenticacion = Enum.Parse<MetodoAutenticacion>(request.MetodoAutenticacion, true);
         if (!string.IsNullOrEmpty(request.TipoAcceso))

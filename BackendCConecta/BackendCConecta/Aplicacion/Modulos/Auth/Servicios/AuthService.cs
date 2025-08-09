@@ -6,6 +6,7 @@ using BackendCConecta.Aplicacion.Modulos.Auth.DTOs;
 using BackendCConecta.Aplicacion.Modulos.Auth.Interfaces;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Dominio.Entidades.Usuarios;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace BackendCConecta.Aplicacion.Modulos.Auth.Servicios
@@ -14,13 +15,13 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Servicios
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IPasswordHasher _passwordHasher;
+        private readonly IPasswordHasher<Usuario> _passwordHasher;
         private readonly ILogger<AuthService> _logger;
 
         public AuthService(
             IUsuarioRepository usuarioRepository,
             IJwtTokenGenerator jwtTokenGenerator,
-            IPasswordHasher passwordHasher,
+            IPasswordHasher<Usuario> passwordHasher,
             ILogger<AuthService> logger)
         {
             _usuarioRepository = usuarioRepository;
@@ -50,7 +51,9 @@ namespace BackendCConecta.Aplicacion.Modulos.Auth.Servicios
                 return Result<LoginResponseDto>.Failure("Usuario inactivo.");
             }
 
-            if (!_passwordHasher.VerificarPassword(request.Password, usuario.PasswordHash))
+            var verification = _passwordHasher.VerifyHashedPassword(usuario, usuario.PasswordHash, request.Password);
+            if (verification != PasswordVerificationResult.Success &&
+                verification != PasswordVerificationResult.SuccessRehashNeeded)
             {
                 _logger.LogWarning("Login failed for {Correo}: contraseña incorrecta", request.Correo);
                 return Result<LoginResponseDto>.Failure("Credenciales incorrectas.");
