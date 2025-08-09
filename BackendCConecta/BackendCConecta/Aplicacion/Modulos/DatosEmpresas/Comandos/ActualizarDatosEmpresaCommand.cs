@@ -3,7 +3,7 @@ using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.DTOs;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Comandos;
 
-public class ActualizarDatosEmpresaCommand : IRequest
+public class ActualizarDatosEmpresaCommand : IRequest<Unit>
 {
     public int IdDatosUsuario { get; set; }
     public ActualizarDatosEmpresaDto Datos { get; set; }

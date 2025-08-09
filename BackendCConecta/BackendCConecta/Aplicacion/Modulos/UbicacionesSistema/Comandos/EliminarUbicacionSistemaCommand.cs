@@ -1,8 +1,8 @@
-﻿using MediatR;
+using MediatR;
 
 namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos
 {
-    public class EliminarUbicacionSistemaCommand : IRequest
+    public class EliminarUbicacionSistemaCommand : IRequest<Unit>
     {
         public int IdUbicacion { get; set; }
 

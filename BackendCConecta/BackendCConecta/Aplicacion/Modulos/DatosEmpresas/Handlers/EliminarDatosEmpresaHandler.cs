@@ -4,7 +4,7 @@ using BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Interfaces;
 
 namespace BackendCConecta.Aplicacion.Modulos.DatosEmpresas.Handlers;
 
-public class EliminarDatosEmpresaHandler : IRequestHandler<EliminarDatosEmpresaCommand>
+public class EliminarDatosEmpresaHandler : IRequestHandler<EliminarDatosEmpresaCommand, Unit>
 {
     private readonly IDatosEmpresaRepository _repository;
 

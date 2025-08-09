@@ -1,10 +1,11 @@
-﻿using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
+using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
 using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Repositorios;
+using MediatR;
 
 namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
 {
-    public class EliminarUbicacionSistemaHandler : IRequestHandler<EliminarUbicacionSistemaCommand>
+    public class EliminarUbicacionSistemaHandler : IRequestHandler<EliminarUbicacionSistemaCommand, Unit>
     {
         private readonly IUbicacionesSistemaRepository _repository;
 
