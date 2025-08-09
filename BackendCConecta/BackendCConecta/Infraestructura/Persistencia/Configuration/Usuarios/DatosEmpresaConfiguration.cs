@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using BackendCConecta.Dominio.Entidades.Usuarios;
+using BackendCConecta.Dominio.Entidades.Empresas;
 
-namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Usuarios
+namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Usuarios
 {
 
 

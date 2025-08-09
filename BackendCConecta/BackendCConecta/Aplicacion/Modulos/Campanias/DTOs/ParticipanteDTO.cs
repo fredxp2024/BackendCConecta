@@ -1,6 +1,6 @@
-﻿namespace BackendCConecta.Aplicacion.Modulos.Campañas.DTOs
+namespace BackendCConecta.Aplicacion.Modulos.Campanias.DTOs;
+
+public class ParticipanteDTO
 {
-    public class ParticipanteDTO
-    {
-    }
 }
+

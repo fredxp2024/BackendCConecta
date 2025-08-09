@@ -573,7 +573,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("observaciones");
 
-            entity.HasOne(d => d.IdDatosUsuarioNavigation).WithOne(p => p.Colaboradore)
+            entity.HasOne(d => d.IdDatosUsuarioNavigation).WithOne(p => p.Colaborador)
                 .HasForeignKey<Colaborador>(d => d.IdDatosUsuario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Colaborad__id_da__48EFCE0F");

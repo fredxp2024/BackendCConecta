@@ -17,5 +17,5 @@ public partial class PerfilColaboradorExtendido
 
     public string? MensajePromocional { get; set; }
 
-    public virtual Colaboradore IdColaboradorNavigation { get; set; } = null!;
+    public virtual Colaborador IdColaboradorNavigation { get; set; } = null!;
 }

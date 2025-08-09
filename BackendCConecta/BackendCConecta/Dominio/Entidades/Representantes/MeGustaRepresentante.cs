@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BackendCConecta.Dominio.Entidades.Usuario;
+using BackendCConecta.Dominio.Entidades.Usuarios;
 
 namespace BackendCConecta.Dominio.Entidades.Representantes;
 
