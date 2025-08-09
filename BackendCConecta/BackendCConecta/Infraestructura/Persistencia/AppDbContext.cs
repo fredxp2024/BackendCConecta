@@ -60,7 +60,7 @@ using BackendCConecta.Dominio.Entidades.Staff;
 using BackendCConecta.Dominio.Entidades.Transacciones;
 
 // 🌍 Ubicación del sistema
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 
 // 👤 Usuarios
 using BackendCConecta.Dominio.Entidades.Usuarios;

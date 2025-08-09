@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using BackendCConecta.Dominio.Entidades.Campanias;
+﻿using BackendCConecta.Dominio.Entidades.Campanias;
 using BackendCConecta.Dominio.Entidades.FechasImportantess;
 using BackendCConecta.Dominio.Entidades.Publicaciones;
 
-namespace BackendCConecta.Dominio.Entidades.UbicacionSistema;
+namespace BackendCConecta.Dominio.Entidades.Ubicaciones;
 
 public partial class UbicacionSistema
 {

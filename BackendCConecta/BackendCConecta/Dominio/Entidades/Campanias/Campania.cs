@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using BackendCConecta.Dominio.Entidades.Staff;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+﻿using BackendCConecta.Dominio.Entidades.Staff;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Entidades.Representantes;
 using BackendCConecta.Dominio.Entidades.CampaniasPromocionales;
 

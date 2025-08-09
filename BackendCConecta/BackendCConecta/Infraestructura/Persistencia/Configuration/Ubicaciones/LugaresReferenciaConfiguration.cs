@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 
 namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Ubicaciones
 {

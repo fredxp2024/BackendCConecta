@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using MediatR;
 using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
 using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.DTOs;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Repositorios;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
 {

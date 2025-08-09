@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using BackendCConecta.Dominio.Entidades.Publicaciones;
+﻿using BackendCConecta.Dominio.Entidades.Publicaciones;
 
-namespace BackendCConecta.Dominio.Entidades.UbicacionSistema;
+namespace BackendCConecta.Dominio.Entidades.Ubicaciones;
 
 public partial class LugaresReferencia
 {

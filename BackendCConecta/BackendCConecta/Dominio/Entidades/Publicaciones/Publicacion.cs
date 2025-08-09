@@ -1,6 +1,4 @@
 ﻿
-using System;
-using System.Collections.Generic;
 using BackendCConecta.Dominio.Entidades.Paquetes;
 using BackendCConecta.Dominio.Entidades.Avisos;
 using BackendCConecta.Dominio.Entidades.Eventos;
@@ -8,7 +6,7 @@ using BackendCConecta.Dominio.Entidades.Negocios;
 using BackendCConecta.Dominio.Entidades.Representantes;
 using BackendCConecta.Dominio.Entidades.Historiales;
 using BackendCConecta.Dominio.Entidades.UsuariosDatos;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Entidades.Multimedia;
 using BackendCConecta.Dominio.Entidades.Transacciones;
 using BackendCConecta.Dominio.Entidades.Colaboradores;
