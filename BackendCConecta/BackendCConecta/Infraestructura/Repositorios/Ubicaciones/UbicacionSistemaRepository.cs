@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Persistencia;
 

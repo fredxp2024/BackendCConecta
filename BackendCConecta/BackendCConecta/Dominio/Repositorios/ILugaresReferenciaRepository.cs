@@ -1,6 +1,4 @@
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 
 namespace BackendCConecta.Dominio.Repositorios;
 

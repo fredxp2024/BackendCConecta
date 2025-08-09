@@ -1,9 +1,6 @@
-﻿using MediatR;
-using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
+﻿using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Repositorios;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
 {
@@ -25,7 +22,7 @@ namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
             return Unit.Value;
         }
 
-        private static void ValidarExistencia(UbicacionesSistema? entidad, int id)
+        private static void ValidarExistencia(UbicacionSistema? entidad, int id)
         {
             if (entidad == null)
                 throw new KeyNotFoundException($"No se encontró la ubicación con ID {id}.");

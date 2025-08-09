@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using MediatR;
 using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Comandos;
 using BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.DTOs;
 using BackendCConecta.Dominio.Repositorios;
-using BackendCConecta.Dominio.Entidades.UbicacionSistema;
-using System.Threading;
-using System.Threading.Tasks;
+using BackendCConecta.Dominio.Entidades.Ubicaciones;
 
 namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
 {
@@ -38,7 +35,7 @@ namespace BackendCConecta.Aplicacion.Modulos.UbicacionesSistema.Handlers
             return _mapper.Map<UbicacionSistemaDto>(entidad);
         }
 
-        private static void ValidarExistencia(UbicacionesSistema? entidad)
+        private static void ValidarExistencia(UbicacionSistema? entidad)
         {
             if (entidad == null)
                 throw new KeyNotFoundException("Ubicación no encontrada.");
