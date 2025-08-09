@@ -6,9 +6,9 @@ taskkill /F /IM BackendCConecta.exe
 taskkill /F /IM dotnet.exe
 
 # Limpieza de bin/obj (Debug por defecto)
-$projRoot = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent
-$bin = Join-Path $projRoot "bin\Debug\net8.0"
-$obj = Join-Path $projRoot "obj\Debug\net8.0"
+$root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$bin = Join-Path $root "bin\Debug\net8.0"
+$obj = Join-Path $root "obj\Debug\net8.0"
 
 if (Test-Path $bin) { Remove-Item $bin -Recurse -Force }
 if (Test-Path $obj) { Remove-Item $obj -Recurse -Force }
