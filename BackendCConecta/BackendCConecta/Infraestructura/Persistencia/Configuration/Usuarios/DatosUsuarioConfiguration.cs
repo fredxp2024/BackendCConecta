@@ -30,12 +30,12 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Usuarios
                    .HasDefaultValueSql("GETDATE()");
 
             // Relaciones 1:1
-            builder.HasOne(d => d.Persona)
+            builder.HasOne(d => d.DatosPersona)
                    .WithOne(p => p.DatosUsuario)
                    .HasForeignKey<DatosPersona>(p => p.IdDatosUsuario)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(d => d.Empresa)
+            builder.HasOne(d => d.DatosEmpresa)
                    .WithOne(e => e.DatosUsuario)
                    .HasForeignKey<DatosEmpresa>(e => e.IdDatosUsuario)
                    .OnDelete(DeleteBehavior.Cascade);

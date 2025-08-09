@@ -8,6 +8,6 @@
         public DateTime FechaFin { get; set; }
         public int PublicacionesDisponibles { get; set; }
         public int DiasGracia { get; set; }
-        public string Observaciones { get; set; }
+        public string Observaciones { get; set; } = default!;
     }
 }

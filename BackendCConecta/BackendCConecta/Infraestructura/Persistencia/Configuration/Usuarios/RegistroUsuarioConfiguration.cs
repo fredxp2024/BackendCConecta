@@ -1,25 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using BackendCConecta.Dominio.Entidades;
 using BackendCConecta.Dominio.Entidades.Usuarios;
 
-namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Usuarios
+namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Usuarios;
+
+public class RegistroUsuarioConfiguration : IEntityTypeConfiguration<RegistroUsuario>
 {
-    public class RegistroUsuarioConfiguration : IEntityTypeConfiguration<RegistroUsuarioConfiguration>
+    public void Configure(EntityTypeBuilder<RegistroUsuario> builder)
     {
-        public void Configure(EntityTypeBuilder<RegistroUsuarioConfiguration> builder)
-        {
-            builder.ToTable("RegistroUsuarios");
+        builder.ToTable("RegistroUsuarios");
 
-            builder.HasKey(x => x.id_registrousuario);
+        builder.HasKey(x => x.IdRegistroUsuario);
 
-            builder.Property(x => x.correo_electronico)
-                   .IsRequired()
-                   .HasMaxLength(100);
+        builder.Property(x => x.CorreoElectronico)
+               .IsRequired()
+               .HasMaxLength(100);
 
-            builder.Property(x => x.password_hash)
-                   .IsRequired()
-                   .HasMaxLength(255);
-        }
+        builder.Property(x => x.PasswordHash)
+               .IsRequired()
+               .HasMaxLength(255);
     }
 }

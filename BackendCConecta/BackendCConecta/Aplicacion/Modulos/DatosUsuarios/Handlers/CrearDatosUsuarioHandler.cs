@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Comandos;
 using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
-using BackendCConecta.Dominio.Entidades.Usuarios;
+using BackendCConecta.Dominio.Entidades.UsuariosDatos;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

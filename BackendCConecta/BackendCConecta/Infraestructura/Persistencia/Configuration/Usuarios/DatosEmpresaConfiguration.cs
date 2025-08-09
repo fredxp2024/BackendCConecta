@@ -14,7 +14,7 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuration.Usuarios
 
             builder.HasKey(e => e.IdDatosUsuario);
 
-            builder.HasOne(e => e.DatosUsuario)
+            builder.HasOne(e => e.IdDatosUsuarioNavigation)
                    .WithOne(d => d.DatosEmpresa)
                    .HasForeignKey<DatosEmpresa>(e => e.IdDatosUsuario);
 

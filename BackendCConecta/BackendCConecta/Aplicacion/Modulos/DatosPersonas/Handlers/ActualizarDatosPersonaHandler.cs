@@ -16,8 +16,8 @@ public class ActualizarDatosPersonaHandler : IRequestHandler<ActualizarDatosPers
 
     public async Task<Unit> Handle(ActualizarDatosPersonaCommand request, CancellationToken cancellationToken)
     {
-        var persona = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario);
-        ValidarExistencia(persona);
+        var persona = await _repository.ObtenerPorIdAsync(request.IdDatosUsuario)
+            ?? throw new KeyNotFoundException("DatosPersona no encontrada.");
 
         persona.Nombres = request.Datos.Nombres;
         persona.ApellidoPaterno = request.Datos.ApellidoPaterno;
@@ -26,11 +26,5 @@ public class ActualizarDatosPersonaHandler : IRequestHandler<ActualizarDatosPers
 
         await _repository.ActualizarAsync(persona);
         return Unit.Value;
-    }
-
-    private static void ValidarExistencia(DatosPersona? persona)
-    {
-        if (persona == null)
-            throw new KeyNotFoundException("DatosPersona no encontrada.");
     }
 }

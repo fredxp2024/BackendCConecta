@@ -11,7 +11,7 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Publicaci
         {
             builder.ToTable("Eventos");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.IdEvento);
 
             builder.Property(x => x.TipoEvento).HasMaxLength(100).IsRequired();
             builder.Property(x => x.FechaInicio).IsRequired();
@@ -19,8 +19,8 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Publicaci
             builder.Property(x => x.Lugar);
             builder.Property(x => x.FechaRegistro).HasDefaultValueSql("GETDATE()");
 
-            builder.HasOne(x => x.Publicacion)
-                   .WithOne()
+            builder.HasOne(x => x.IdPublicacionNavigation)
+                   .WithOne(p => p.Evento)
                    .HasForeignKey<Evento>(x => x.IdPublicacion)
                    .OnDelete(DeleteBehavior.Restrict);
         }

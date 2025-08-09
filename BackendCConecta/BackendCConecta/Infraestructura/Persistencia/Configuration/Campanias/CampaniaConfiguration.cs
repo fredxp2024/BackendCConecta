@@ -27,12 +27,12 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Campanias
             builder.Property(c => c.FechaRegistro)
                    .HasDefaultValueSql("GETDATE()");
 
-            builder.HasOne(c => c.Ubicacion)
+            builder.HasOne(c => c.IdUbicacionNavigation)
                    .WithMany()
                    .HasForeignKey(c => c.IdUbicacion)
                    .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(c => c.Staff)
+            builder.HasOne(c => c.IdStaffNavigation)
                    .WithMany()
                    .HasForeignKey(c => c.IdStaff);
         }

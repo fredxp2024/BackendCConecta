@@ -1,9 +1,6 @@
 ﻿using MediatR;
 
-namespace BackendCConecta.Aplicacion.Modulos.Usuarios.Comandos
-{
-    public class EliminarUsuarioCommand : IRequest<bool>
-    {
-        public int IdUsuario { get; set; }
-    }
-}
+namespace BackendCConecta.Aplicacion.Modulos.Usuarios.Comandos;
+
+public sealed record EliminarUsuarioCommand(int IdUsuario) : IRequest<bool>;
+
