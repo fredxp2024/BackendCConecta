@@ -20,6 +20,7 @@ using BackendCConecta.Aplicacion.Modulos.DatosUsuarios.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.FechasImportantes.Interfaces;
 using BackendCConecta.Aplicacion.Modulos.FechasImportantes.Services;
 using BackendCConecta.Aplicacion.Modulos.Usuarios.Interfaces;
+using BackendCConecta.Dominio.Entidades.Usuarios;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Persistencia;
 using BackendCConecta.Infraestructura.Repositorios;
@@ -34,6 +35,7 @@ using BackendCConecta.Infraestructura.Servicios.DatosEmpresas;
 using BackendCConecta.Infraestructura.Servicios.DatosPersonas;
 using BackendCConecta.Infraestructura.Servicios.DatosUsuarios;
 using BackendCConecta.Infraestructura.Servicios.Usuarios;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,7 +74,7 @@ builder.Services.AddAutoMapper(
 );
 
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
