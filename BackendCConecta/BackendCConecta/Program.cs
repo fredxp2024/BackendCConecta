@@ -152,7 +152,10 @@ builder.Services
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 // 🧠 MediatR
-builder.Services.AddMediatR(typeof(Program));
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // ---------------------------------------------
