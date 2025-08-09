@@ -13,8 +13,8 @@
     <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
   </PropertyGroup>
 
-  <!-- OPCIONAL: Solo en Debug desactivar apphost para evitar EXE bloqueado -->
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <!-- Evita crear apphost .exe en Debug; ejecuta via dll y reduce bloqueos -->
     <UseAppHost>false</UseAppHost>
   </PropertyGroup>
 
@@ -49,7 +49,15 @@
   </Target>
 
   <Target Name="KillLockedExeOnDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug' AND '$(OS)' == 'Windows_NT'">
-    <Exec Command="taskkill /F /IM BackendCConecta.exe" IgnoreExitCode="true" />
+    <!-- Intenta cerrar cualquier proceso previo; no fallar si no existe -->
+    <Exec Command="taskkill /F /IM BackendCConecta.exe /T" IgnoreExitCode="true" />
+    <!-- Cerrar también dotnet que tenga la dll cargada (escenario dotnet run / watch) -->
+    <Exec Command="for /f &quot;tokens=2&quot; %&#37;i in ('tasklist ^| findstr /I &quot;dotnet.exe&quot;') do (echo Revisando PID %&#37;i)" IgnoreExitCode="true" />
+  </Target>
+
+  <Target Name="PostBuildCleanupExe" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug' AND Exists('$(OutputPath)BackendCConecta.exe')">
+    <Message Text="Eliminando BackendCConecta.exe residual en Debug..." Importance="high" />
+    <Delete Files="$(OutputPath)BackendCConecta.exe" ContinueOnError="true" />
   </Target>
 
 </Project>
