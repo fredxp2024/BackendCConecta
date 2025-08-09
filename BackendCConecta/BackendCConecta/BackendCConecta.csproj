@@ -7,6 +7,17 @@
     <UserSecretsId>9b8af4a7-d610-4280-b212-1d5d2ae82d7d</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- Aumentar tolerancia de reintentos de copia -->
+    <CopyRetryCount>30</CopyRetryCount>
+    <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
+  </PropertyGroup>
+
+  <!-- OPCIONAL: Solo en Debug desactivar apphost para evitar EXE bloqueado -->
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <UseAppHost>false</UseAppHost>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
@@ -31,5 +42,19 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
   </ItemGroup>
+
+  <!-- Apagar servidores de build del SDK antes de compilar (libera locks) -->
+  <Target Name="ShutdownDotnetBuildServer" BeforeTargets="Build">
+    <Exec Command="dotnet build-server shutdown" ContinueOnError="true" />
+  </Target>
+
+  <!-- Matar instancia previa de la app (solo Windows) antes del Build -->
+  <Target Name="KillRunningBackendCConecta" BeforeTargets="Build" Condition="'$(OS)'=='Windows_NT'">
+    <!-- Intenta terminar el proceso por nombre; ignora error si no existe -->
+    <Exec Command="taskkill /F /IM BackendCConecta.exe /T" ContinueOnError="true" />
+    <!-- Como último recurso, intenta también matar dotnet.exe si mantiene el lock (comentado por defecto):
+    <Exec Command="taskkill /F /IM dotnet.exe /T" ContinueOnError="true" />
+    -->
+  </Target>
 
 </Project>
