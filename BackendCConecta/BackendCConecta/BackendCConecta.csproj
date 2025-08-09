@@ -14,19 +14,19 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <!-- Opcional: evita generar EXE en Debug; correrá como DLL (dotnet BackendCConecta.dll) -->
+    <!-- Opcional: en Debug no generar EXE; corre con DLL para reducir bloqueos -->
     <UseAppHost>false</UseAppHost>
   </PropertyGroup>
 
-  <Target Name="KillLockedBackend" BeforeTargets="Build">
-    <!-- Intenta cerrar cualquier instancia previa que bloquee la compilación -->
+  <Target Name="KillIfLocked" BeforeTargets="Clean;Build">
+    <!-- Cierra cualquier instancia del ejecutable de la app -->
     <Exec Command="taskkill /F /IM BackendCConecta.exe" IgnoreExitCode="true" />
-    <!-- Si estaba corriendo con dotnet, también intenta cerrar el dotnet host antiguas -->
+    <!-- Cierra host de .NET si dejó handles abiertos (watch/run) -->
     <Exec Command="taskkill /F /IM dotnet.exe" IgnoreExitCode="true" />
   </Target>
 
-  <Target Name="PreCleanIfNeeded" BeforeTargets="CoreCompile">
-    <!-- Elimina restos de compilaciones anteriores si siguen bloqueados -->
+  <Target Name="SafePreClean" BeforeTargets="CoreClean">
+    <!-- Limpieza forzada de artefactos si quedaron residuos bloqueados -->
     <RemoveDir Directories='$(MSBuildProjectDirectory)\bin\Debug\net8.0' />
     <RemoveDir Directories='$(MSBuildProjectDirectory)\obj\Debug\net8.0' />
   </Target>
