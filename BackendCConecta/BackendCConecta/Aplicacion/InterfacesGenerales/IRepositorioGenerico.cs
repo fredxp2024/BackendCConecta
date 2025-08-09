@@ -1,4 +1,6 @@
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BackendCConecta.Aplicacion.InterfacesGenerales;
 
@@ -12,34 +14,34 @@ public interface IRepositorioGenerico<T> where T : class
     /// Obtiene una entidad por su identificador primario.
     /// </summary>
     /// <param name="id">Identificador de la entidad.</param>
-    Task<T?> ObtenerPorIdAsync(int id);
+    Task<T?> ObtenerPorIdAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtiene todas las entidades del tipo especificado.
     /// </summary>
-    Task<IEnumerable<T>> ObtenerTodosAsync();
+    Task<IEnumerable<T>> ObtenerTodosAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Inserta una nueva entidad en el contexto de datos.
     /// </summary>
     /// <param name="entidad">Entidad a insertar.</param>
-    Task InsertarAsync(T entidad);
+    Task InsertarAsync(T entidad, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Actualiza una entidad existente en el contexto de datos.
     /// </summary>
     /// <param name="entidad">Entidad a actualizar.</param>
-    Task ActualizarAsync(T entidad);
+    Task ActualizarAsync(T entidad, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Elimina una entidad del contexto de datos.
     /// </summary>
     /// <param name="entidad">Entidad a eliminar.</param>
-    Task EliminarAsync(T entidad);
+    Task EliminarAsync(T entidad, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Permite realizar consultas personalizadas sobre la entidad.
     /// </summary>
     /// <param name="predicado">Expresión con la condición de filtro.</param>
-    Task<IEnumerable<T>> BuscarAsync(Expression<Func<T, bool>> predicado);
+    Task<IEnumerable<T>> BuscarAsync(Expression<Func<T, bool>> predicado, CancellationToken cancellationToken = default);
 }

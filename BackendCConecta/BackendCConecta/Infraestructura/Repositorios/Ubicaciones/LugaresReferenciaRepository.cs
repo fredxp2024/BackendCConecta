@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 using BackendCConecta.Dominio.Entidades.Ubicaciones;
 using BackendCConecta.Dominio.Repositorios;
 using BackendCConecta.Infraestructura.Persistencia;
@@ -12,35 +14,35 @@ public class LugaresReferenciaRepository : ILugaresReferenciaRepository
     public LugaresReferenciaRepository(AppDbContext context)
         => _context = context;
 
-    public async Task<LugaresReferencia?> ObtenerPorIdAsync(int id)
+    public async Task<LugaresReferencia?> ObtenerPorIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _context.LugaresReferencias
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.IdLugar == id);
+            .FirstOrDefaultAsync(x => x.IdLugar == id, cancellationToken);
     }
 
-    public async Task<IEnumerable<LugaresReferencia>> ListarAsync()
+    public async Task<IEnumerable<LugaresReferencia>> ListarAsync(CancellationToken cancellationToken = default)
     {
         return await _context.LugaresReferencias
             .AsNoTracking()
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task InsertarAsync(LugaresReferencia entidad)
+    public async Task InsertarAsync(LugaresReferencia entidad, CancellationToken cancellationToken = default)
     {
-        await _context.LugaresReferencias.AddAsync(entidad);
-        await _context.SaveChangesAsync();
+        await _context.LugaresReferencias.AddAsync(entidad, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task ActualizarAsync(LugaresReferencia entidad)
+    public async Task ActualizarAsync(LugaresReferencia entidad, CancellationToken cancellationToken = default)
     {
         _context.LugaresReferencias.Update(entidad);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task EliminarAsync(LugaresReferencia entidad)
+    public async Task EliminarAsync(LugaresReferencia entidad, CancellationToken cancellationToken = default)
     {
         _context.LugaresReferencias.Remove(entidad);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }
