@@ -147,11 +147,17 @@ builder.Services.AddScoped<IFechasImportantesService, FechasImportantesService>(
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 // 🗂️ FluentValidation
+builder.Services.AddControllers();
+
 builder.Services
-    .AddControllers()
     .AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+builder.Services.AddValidatorsFromAssemblies(new[]
+{
+    typeof(Program).Assembly,
+    typeof(BackendCConecta.Aplicacion.AssemblyMarker).Assembly
+});
 
 // 🧠 MediatR
 builder.Services.AddMediatR(cfg =>

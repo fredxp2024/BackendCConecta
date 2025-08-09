@@ -31,12 +31,12 @@ namespace BackendCConecta.Infraestructura.Persistencia.Configuraciones.Usuarios
 
             // Relaciones 1:1
             builder.HasOne(d => d.DatosPersona)
-                   .WithOne(p => p.DatosUsuario)
+                   .WithOne(p => p.IdDatosUsuarioNavigation)
                    .HasForeignKey<DatosPersona>(p => p.IdDatosUsuario)
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(d => d.DatosEmpresa)
-                   .WithOne(e => e.DatosUsuario)
+                   .WithOne(e => e.IdDatosUsuarioNavigation)
                    .HasForeignKey<DatosEmpresa>(e => e.IdDatosUsuario)
                    .OnDelete(DeleteBehavior.Cascade);
         }
